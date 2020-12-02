@@ -4,15 +4,18 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Login from "../screens/AuthScreen/Login/Login.screen";
 import Register from "../screens/AuthScreen/Register/Register.screen"
-
+import Otp from "../screens/AuthScreen/Register/Otp.screen"
+import AccountActivate from "../screens/AuthScreen/Register/AccountActivate"
 
 const AuthenticationNavigator = createStackNavigator({
-            Login: Login,
-            Register: Register
+     Login: Login,
+     Register: Register,
+     Otp: Otp,
+     ActivateAccount: AccountActivate
 }, {
-            defaultNavigationOptions: {
-                        headerShown: false
-            }
+     defaultNavigationOptions: {
+          headerShown: false
+     }
 })
 
 

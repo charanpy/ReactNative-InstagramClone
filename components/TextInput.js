@@ -7,6 +7,8 @@ const TextInputComponent = (props) => {
                <TextInput
                     {...props}
                     style={styles.Text_Input}
+                    onChangeText={props.handleChange}
+                    value={props.value}
 
                />
           </View>
@@ -19,7 +21,8 @@ export default TextInputComponent;
 const styles = StyleSheet.create({
      Input_Center: {
           alignItems: 'center',
-          marginTop: 20
+          marginTop: 20,
+          width: '100%'
      },
      Text_Input: {
           padding: 10,
