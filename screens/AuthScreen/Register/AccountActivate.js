@@ -10,7 +10,7 @@ const AccountActivate = () => {
      const [password, setPassword] = useState('')
      const [confirmPassword, setConfirmPassword] = useState('')
      const [disabled, setDisabled] = useState(true)
-     console.log(disabled)
+     
      useEffect(() => {
           if (password && password === confirmPassword) {
                setDisabled(false)
