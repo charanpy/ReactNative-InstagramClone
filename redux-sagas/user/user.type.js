@@ -20,9 +20,9 @@ export const userActionTypes = {
      SIGN_OUT_FAILURE: 'SIGN_OUT_FAILURE',
 
      SET_CURRENT_USER: 'SET_CURRENT_USER',
-     AUTH_ERROR: 'AUTH_ERROR'
+     AUTH_ERROR: 'AUTH_ERROR',
 
-
+     SET_SUCCESS_FALSE: 'SET_SUCCESS_FALSE'
 
 
 }

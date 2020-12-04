@@ -5,6 +5,7 @@ import TextComponent from "../../../components/TextComponent"
 import TextInputComponent from "../../../components/TextInput";
 import FooterAuth from '../../../components/FooterAuth';
 //import { CommonStyles } from "../../../styles/Common.styles"
+import GoBack from '../../../components/GoBack'
 import ButtonComponent from '../../../components/ButtonComponent';
 const Login = (props) => {
      const [email, setEmail] = useState('')
@@ -34,6 +35,7 @@ const Login = (props) => {
 
      return (
           <MainContainer style={styles.Login_Container}>
+
                <View style={styles.Lang_Select}>
                     <TextComponent style={styles.Lang_Text}>English(United states)</TextComponent>
                </View>

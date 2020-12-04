@@ -1,37 +1,74 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, BackHandler, Alert, Modal } from 'react-native'
 import MainContainer from "../../MainContainer";
 import TextComponent from "../../../components/TextComponent"
 import TextInputComponent from "../../../components/TextInput";
-
+import AccountActivate from './AccountActivate'
 import ButtonComponent from '../../../components/ButtonComponent'
+import { connect } from 'react-redux';
+import { setSuccessFalse, verifyOtpStart } from "../../../redux-sagas/user/user.action"
+import { selectApiCallSuccess, selectIsVerified, selectEmail } from "../../../redux-sagas/user/user.selector"
+import { createStructuredSelector } from "reselect"
+//import GoBack from '../../../components/GoBack'
+
+
 
 const Otp = (props) => {
-     const emailForOtpConfirmation = props.navigation.getParam("emailForOtpConfirmation")
-     const [otp, setOtp] = useState('')
+     console.log(props.email)
+     const [Otp, setOtp] = useState('')
      const [disabled, setDisabled] = useState(true)
 
      useEffect(() => {
-          if (otp.length === 6) {
+          if (props.verified) {
+               props.navigation.navigate("ActivateAccount")
+          }
+     }, [props.verified])
+
+     useEffect(() => {
+          const handleBackButton = () => {
+               //g
+               props.navigation.navigate({
+                    routeName: "ConfirmScreen",
+                    params: {
+                         navigation: 'Otp'
+                    }
+               });
+
+               return true;
+          }
+
+          const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton)
+          return () => backHandler.remove();
+     }, []);
+
+
+
+
+     useEffect(() => {
+          props.setSuccessFalse()
+     }, [])
+
+
+
+     useEffect(() => {
+          if (Otp.length >= 5) {
                setDisabled(false)
 
           } else {
                setDisabled(true)
           }
-     }, [otp, disabled])
+     }, [Otp, disabled])
 
      const onSubmitHandler = () => {
-          if (otp.length !== 6) {
+          if (Otp.length !== 6) {
                console.log(true)
           }
+          props.verifyOtpStart(Otp)
           setOtp('')
-          props.navigation.navigate({
-               routeName: 'ActivateAccount',
-               params: {
-                    emailForOtpConfirmation: emailForOtpConfirmation
-               }
-          })
+
      }
+
+
 
 
      return (
@@ -44,14 +81,15 @@ const Otp = (props) => {
                          Enter the confirmation code that we have
                </TextComponent>
                     <View style={{ alignItems: 'center' }}>
-                         <TextComponent style={styles.Sub_Text}>sent to <TextComponent style={{ fontWeight: 'bold' }}>{emailForOtpConfirmation}</TextComponent></TextComponent>
+                         <TextComponent style={styles.Sub_Text}>sent to
+                         <TextComponent style={{ fontWeight: 'bold' }}> {props.email}</TextComponent></TextComponent>
                     </View>
                     <View style={{ width: '100%' }}>
                          <TextInputComponent
                               placeholder="Confirmation Code"
                               keyboardType="numeric"
                               handleChange={(text) => setOtp(text)}
-                              value={otp}
+                              value={Otp}
                          />
                     </View>
                     <ButtonComponent
@@ -64,7 +102,20 @@ const Otp = (props) => {
      )
 }
 
-export default Otp
+const mapStateToProps = createStructuredSelector({
+     success: selectApiCallSuccess,
+     verified: selectIsVerified,
+     email: selectEmail
+})
+
+const mapDispatchToProps = dispatch => ({
+
+     setSuccessFalse: () => dispatch(setSuccessFalse()),
+     verifyOtpStart: (Otp) => dispatch(verifyOtpStart({ Otp }))
+
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Otp)
 
 const styles = StyleSheet.create({
      Otp_Confirmation: {

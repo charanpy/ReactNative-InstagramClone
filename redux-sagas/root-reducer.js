@@ -1,11 +1,10 @@
-import { all, call } from 'redux-saga/effects';
+import { combineReducers } from 'redux';
+import { userReducer } from "./user/user.reducer"
+import { alertReducer } from './alert/alert.reducer'
 
 
-import { userSagas } from './user/user.saga'
-
-export default function* rootSaga() {
-            yield all([
-
-                        call(userSagas)
-            ])
-}
+const rootReducer = combineReducers({
+     user: userReducer,
+     alert: alertReducer
+});
+export default rootReducer;

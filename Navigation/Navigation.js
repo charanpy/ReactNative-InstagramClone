@@ -6,12 +6,13 @@ import Login from "../screens/AuthScreen/Login/Login.screen";
 import Register from "../screens/AuthScreen/Register/Register.screen"
 import Otp from "../screens/AuthScreen/Register/Otp.screen"
 import AccountActivate from "../screens/AuthScreen/Register/AccountActivate"
-
+import ConfirmScreen from '../screens/ConfirmScreen'
 const AuthenticationNavigator = createStackNavigator({
      Login: Login,
      Register: Register,
      Otp: Otp,
-     ActivateAccount: AccountActivate
+     ActivateAccount: AccountActivate,
+     ConfirmScreen: ConfirmScreen
 }, {
      defaultNavigationOptions: {
           headerShown: false

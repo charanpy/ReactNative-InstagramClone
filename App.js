@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { AppLoading } from "expo"
 import Navigation from "./Navigation/Navigation";
-
 import { fetchAllFonts } from "./helper/Font"
 
-
+import { Provider } from 'react-redux';
+import { store } from './redux-sagas/store'
+import AlertComponent from "./components/AlertComponent"
 export default function App() {
 
   const [fontLoaded, setFontLoaded] = useState(false)
@@ -22,8 +23,12 @@ export default function App() {
 
 
   return (
+    <Provider store={store}>
 
-    <Navigation />
+      <AlertComponent />
+      <Navigation />
+
+    </Provider>
 
   );
 }
