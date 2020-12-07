@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
           borderWidth: 0.5,
           backgroundColor: 'rgba(255,255,255,0.95)',
           width: '80%',
-          borderRadius: 5
+          borderRadius: 5,
+          fontFamily: 'Roboto-Light'
      }
 })

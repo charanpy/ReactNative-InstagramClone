@@ -7,26 +7,24 @@ import AccountActivate from './AccountActivate'
 import ButtonComponent from '../../../components/ButtonComponent'
 import { connect } from 'react-redux';
 import { setSuccessFalse, verifyOtpStart } from "../../../redux-sagas/user/user.action"
-import { selectApiCallSuccess, selectIsVerified, selectEmail } from "../../../redux-sagas/user/user.selector"
+import { selectApiCallSuccess, selectStatus, selectEmail } from "../../../redux-sagas/user/user.selector"
 import { createStructuredSelector } from "reselect"
-//import GoBack from '../../../components/GoBack'
-
-
 
 const Otp = (props) => {
-     console.log(props.email)
      const [Otp, setOtp] = useState('')
      const [disabled, setDisabled] = useState(true)
 
      useEffect(() => {
-          if (props.verified) {
+          if (props.status === 'GetPassword') {
                props.navigation.navigate("ActivateAccount")
+          } else if (props.status === null) {
+               props.navigation.navigate("Login")
+
           }
-     }, [props.verified])
+     }, [props.status])
 
      useEffect(() => {
           const handleBackButton = () => {
-               //g
                props.navigation.navigate({
                     routeName: "ConfirmScreen",
                     params: {
@@ -40,14 +38,6 @@ const Otp = (props) => {
           const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton)
           return () => backHandler.remove();
      }, []);
-
-
-
-
-     useEffect(() => {
-          props.setSuccessFalse()
-     }, [])
-
 
 
      useEffect(() => {
@@ -104,8 +94,8 @@ const Otp = (props) => {
 
 const mapStateToProps = createStructuredSelector({
      success: selectApiCallSuccess,
-     verified: selectIsVerified,
-     email: selectEmail
+     email: selectEmail,
+     status: selectStatus
 })
 
 const mapDispatchToProps = dispatch => ({

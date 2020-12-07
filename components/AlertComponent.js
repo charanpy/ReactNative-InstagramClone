@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Modal, TouchableNativeFeedback } from 'react-native'
 import TextComponent from './TextComponent';
+//import MainContainer from '../screens/MainContainer'
 import { createStructuredSelector } from 'reselect'
 import { connect } from 'react-redux';
 import { selectAlertMessage } from '../redux-sagas/alert/alert.selector'
 import { removeAlert } from '../redux-sagas/alert/alert.action'
-const AlertComponent = ({ alert, removeAlert }) => {
+import { selectBackground } from '../redux-sagas/theme/theme.selector'
+
+const AlertComponent = ({ alert, removeAlert, background }) => {
      console.log(100, alert.length)
      const [showAlert, setShowAlert] = useState(alert.length > 0 ? true : false)
+     const [backgroundColor, setBackgroundColor] = useState('white')
+
+     useEffect(() => {
+          background === 'black' && setBackgroundColor("#212529")
+     }, [background])
 
      useEffect(() => {
           alert.length > 0
@@ -15,6 +23,7 @@ const AlertComponent = ({ alert, removeAlert }) => {
      }, [alert])
 
      return (
+
           <View style={{ flex: 1, justifyContent: 'center', position: 'absolute' }}>
                <Modal
                     animationType="fade"
@@ -23,7 +32,7 @@ const AlertComponent = ({ alert, removeAlert }) => {
 
                >
                     {alert && alert.map(err => (
-                         <View style={styles.Modal} key={err.id}>
+                         <View style={[styles.Modal, { backgroundColor: backgroundColor }]} key={err.id}>
                               <TextComponent style={{ fontSize: 17, fontFamily: 'Proxima-Light' }}>
 
                                    {err.msg}
@@ -63,7 +72,8 @@ const AlertComponent = ({ alert, removeAlert }) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-     alert: selectAlertMessage
+     alert: selectAlertMessage,
+     background: selectBackground
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -79,7 +89,7 @@ const styles = StyleSheet.create({
           borderColor: '#fff',
           borderWidth: 1,
           borderRadius: 5,
-          backgroundColor: 'white',
+
           elevation: 25,
           alignItems: 'center',
           paddingVertical: 20,

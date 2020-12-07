@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Animated, View } from 'react-native'
+import { StyleSheet, Animated, View, KeyboardAvoidingView } from 'react-native'
 import MainContainer from "../../MainContainer";
 import TextComponent from "../../../components/TextComponent"
 import TextInputComponent from "../../../components/TextInput";
@@ -9,7 +9,8 @@ import ButtonComponent from "../../../components/ButtonComponent";
 import { sendEmailConfirmationStart } from "../../../redux-sagas/user/user.action"
 import { connect } from 'react-redux'
 import { createStructuredSelector } from "reselect"
-import { selectApiCallSuccess } from "../../../redux-sagas/user/user.selector"
+import { selectColor } from '../../../redux-sagas/theme/theme.selector'
+import { selectApiCallSuccess, selectStatus } from "../../../redux-sagas/user/user.selector"
 const Register = (props) => {
      const [email, setEmail] = useState('');
      const [disabled, setDisabled] = useState(true)
@@ -31,7 +32,7 @@ const Register = (props) => {
 
      useEffect(() => {
 
-          if (props.success) {
+          if (props.status === 'GetOtp') {
                props.navigation.navigate({
                     routeName: 'Otp',
 
@@ -39,9 +40,7 @@ const Register = (props) => {
                )
           }
           setEmail('')
-     }, [props.success])
-
-
+     }, [props.status])
 
 
      const slideErrorMsg = () => {
@@ -51,8 +50,6 @@ const Register = (props) => {
                useNativeDriver: false
           }).start()
      }
-
-
 
      const onSubmitHandler = async () => {
           let mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -67,8 +64,6 @@ const Register = (props) => {
 
                     error: 'Please enter a valid Gmail',
                })
-
-
                return;
           }
           !error && props.sendEmailConfirmationStart(email)
@@ -76,68 +71,65 @@ const Register = (props) => {
                isValidated: false,
                error: null
           })
-
-
-
-
      }
 
-
-
-
      return (
-          <MainContainer style={styles.Register_Container}>
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="height" keyboardVerticalOffset={-50}>
+               <MainContainer style={styles.Register_Container}>
 
-               <View>
-                    <AntDesign name="user" size={80} color={"#212529"} />
-               </View>
-               <View
-                    style={{ width: '100%' }}
-               >
-                    <TextInputComponent
-                         placeholder="Email"
-                         keyboardType="email-address"
-                         handleChange={(text) => setEmail(text)}
-                         value={email}
+                    <View>
+                         <AntDesign name="user" size={80} color={props.color} />
+                    </View>
+                    <View
+                         style={{ width: '100%' }}
+                    >
+                         <TextInputComponent
+                              placeholder="Email"
+                              keyboardType="email-address"
+                              handleChange={(text) => setEmail(text)}
+                              value={email}
+
+                         />
+                    </View>
+
+                    <ButtonComponent
+                         disableButton={disabled}
+                         onPressButton={
+                              onSubmitHandler
+
+                         }
+                         title="Register"
 
                     />
-               </View>
+                    {error && (
+                         <Animated.View
+                              style={{
+                                   opacity: value
+                              }}
+                         >
+                              <View>
+                                   <TextComponent color="red" style={styles.Alert}>
+                                        {error}
+                                   </TextComponent>
+                              </View>
+                         </Animated.View>
 
-               <ButtonComponent
-                    disableButton={disabled}
-                    onPressButton={
-                         onSubmitHandler
+                    )}
+                    <FooterAuth
+                         navigate={() => props.navigation.navigate("Login")}
+                         footerText="Already have an account?"
+                         footerTextLink="Login"
 
-                    }
-                    title="Register"
-
-               />
-               {error && (
-                    <Animated.View
-                         style={{
-                              opacity: value
-                         }}
-                    >
-                         <View>
-                              <TextComponent color="red" style={styles.Alert}>
-                                   {error}
-                              </TextComponent>
-                         </View>
-                    </Animated.View>
-
-               )}
-               <FooterAuth
-                    navigate={() => props.navigation.navigate("Login")}
-                    footerText="Already have an account?"
-                    footerTextLink="Login"
-
-               />
-          </MainContainer>
+                    />
+               </MainContainer>
+          </KeyboardAvoidingView>
      )
 }
 
 const mapStateToProps = createStructuredSelector({
-     success: selectApiCallSuccess
+     success: selectApiCallSuccess,
+     status: selectStatus,
+     color: selectColor
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -160,6 +152,6 @@ const styles = StyleSheet.create({
      Alert: {
           fontSize: 15,
           marginTop: 20,
-          fontFamily: 'Nue-Light'
+          fontFamily: 'Nue-Regular'
      }
 })

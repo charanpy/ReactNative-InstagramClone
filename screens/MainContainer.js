@@ -1,26 +1,48 @@
-import React from 'react'
-import { SafeAreaView, View } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, View } from 'react-native';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect'
-import { selectAlertMessage } from '../redux-sagas/alert/alert.selector'
+import { createStructuredSelector } from 'reselect';
+import { selectAlertMessage } from '../redux-sagas/alert/alert.selector';
+import { selectBackground } from '../redux-sagas/theme/theme.selector';
 
-const MainContainer = (props) => {
-     const AppTheme = props.alert.length > 0 ? 'rgba(0,0,0,0.5)' : "#fff";
-     return (
-          <SafeAreaView
-               style={{ flex: 1, position: 'relative' }}
-          >
-               <View style={{ position: 'relative', backgroundColor: AppTheme, flex: 1, ...props.style }}>
-                    {props.children}
-               </View>
-          </SafeAreaView>
-     )
-}
+const MainContainer = ({
+  children, background, alert, style
+}) => {
+  const [backgroundColor, setBackgroundColor] = useState(background);
+  useEffect(() => {
+    if (backgroundColor === background) return;
+    setBackgroundColor(background);
+  }, [background, backgroundColor]);
+
+  let AppTheme;
+  if (alert.length > 0) {
+    if (background === 'black') {
+      AppTheme = 'rgba(0,0,0,0.8)';
+    } else {
+      AppTheme = 'rgba(0,0,0,0.6)';
+    }
+  } else {
+    AppTheme = backgroundColor;
+  }
+  return (
+    <SafeAreaView style={{ flex: 1, position: 'relative' }}>
+      <View
+        style={{
+          position: 'relative',
+          backgroundColor: AppTheme,
+          flex: 1,
+          ...style,
+        }}
+      >
+        {children}
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
-     alert: selectAlertMessage
-})
+  alert: selectAlertMessage,
+  background: selectBackground,
+});
 
-export default connect(mapStateToProps)(MainContainer)
-
-
+export default connect(mapStateToProps)(MainContainer);

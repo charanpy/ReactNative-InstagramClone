@@ -26,3 +26,13 @@ export const selectEmail = createSelector(
      [selectUser],
      emailAccount => emailAccount.email
 )
+
+export const selectStatus = createSelector(
+     [selectUser],
+     getStatus => getStatus.status
+)
+
+export const selectIsAuthenticated = createSelector(
+     [selectUser],
+     auth => auth.isAuthenticated
+)

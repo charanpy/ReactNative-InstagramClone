@@ -1,33 +1,36 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, BackHandler, View } from 'react-native'
-import GoBack from '../components/GoBack'
-const ConfirmScreen = (props) => {
-     console.log(props.navigation.getParam("navigation"))
+import React, { useEffect } from 'react';
+import { BackHandler, View } from 'react-native';
+import GoBack from '../components/GoBack';
 
-     useEffect(() => {
-          const handleBackButton = () => {
-               //g
-               props.navigation.navigate("ConfirmScreen");
+const ConfirmScreen = ({
+  navigation
+}) => {
+  console.log(navigation.getParam('navigation'));
 
-               return true;
-          }
+  useEffect(() => {
+    const handleBackButton = () => {
 
-          const backHandler = BackHandler.addEventListener("hardwareBackPress", handleBackButton)
-          return () => backHandler.remove();
-     }, []);
+      navigation.navigate('ConfirmScreen');
 
+      return true;
+    };
 
-     return (
-          <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.7)' }}>
-               <GoBack
-                    onCancelClick={() => props.navigation.navigate(props.navigation.getParam("navigation"))}
-                    onOkClick={() => props.navigation.navigate("Register")}
-                    onPop={() => props.navigation.pop()}
-               />
-          </View>
-     )
-}
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackButton
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
 
-export default ConfirmScreen
+  return (
+    <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.7)' }}>
+      <GoBack
+        onCancelClick={() => navigation.navigate(navigation.getParam('navigation'))}
+        onOkClick={() => navigation.navigate('Register')}
+        onPop={() => navigation.pop()}
+      />
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({})
+export default ConfirmScreen;
