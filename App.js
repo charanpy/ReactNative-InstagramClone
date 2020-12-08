@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { fetchAllFonts } from './helper/Font';
 import setAuthToken from './helper/utils/setAuthToken';
 
-import { store } from './redux-sagas/store';
+import store from './redux-sagas/store';
 import AlertComponent from './components/AlertComponent';
 import { loadUserStart } from './redux-sagas/user/user.action';
 // import * as SecureStore from 'expo-secure-store'

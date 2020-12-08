@@ -1,38 +1,38 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
-const selectUser = state => state.user;
+const selectUser = (state) => state.user;
 
 export const selectIsLoading = createSelector(
-     [selectUser],
-     checkIsLoaded => checkIsLoaded.loading
-)
+  [selectUser],
+  (checkIsLoaded) => checkIsLoaded.loading
+);
 
 export const selectApiCallSuccess = createSelector(
-     [selectUser],
-     apiCall => apiCall.success
-)
+  [selectUser],
+  (apiCall) => apiCall.success
+);
 
 export const selectApiCallLoading = createSelector(
-     [selectUser],
-     apiLoading => apiLoading.loading
-)
+  [selectUser],
+  (apiLoading) => apiLoading.loading
+);
 
 export const selectIsVerified = createSelector(
-     [selectUser],
-     verifyAccount => verifyAccount.isVerified
-)
+  [selectUser],
+  (verifyAccount) => verifyAccount.isVerified
+);
 
 export const selectEmail = createSelector(
-     [selectUser],
-     emailAccount => emailAccount.email
-)
+  [selectUser],
+  (emailAccount) => emailAccount.email
+);
 
 export const selectStatus = createSelector(
-     [selectUser],
-     getStatus => getStatus.status
-)
+  [selectUser],
+  (getStatus) => getStatus.status
+);
 
 export const selectIsAuthenticated = createSelector(
-     [selectUser],
-     auth => auth.isAuthenticated
-)
+  [selectUser],
+  (auth) => auth.isAuthenticated
+);

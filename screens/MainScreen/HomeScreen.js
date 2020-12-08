@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, TouchableNativeFeedback } from 'react-native';
+import { View, TouchableNativeFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import PropTypes from 'prop-types';
 import MainContainer from '../MainContainer';
 import TextComponent from '../../components/TextComponent';
 import {
@@ -16,42 +17,55 @@ import {
 } from '../../redux-sagas/theme/theme.action';
 
 const HomeScreen = ({
-  setThemeLightStart,
-  setThemeStart,
-  loadUserStart,
-  signOutStart,
+  setThemeLightStart: setLightTheme,
+  setThemeStart: setDarkTheme,
+  loadUserStart: loadUser,
+  signOutStart: signOut,
   isAuthenticated,
   navigation,
 }) => {
   useEffect(() => {
-    loadUserStart();
-  }, []);
+    loadUser();
+  }, [loadUser]);
   const data = getTheme().then((res) => res);
   console.log(data);
   useEffect(() => {
-    !isAuthenticated && navigation.navigate('Auth');
-  }, [isAuthenticated]);
+    if (!isAuthenticated) {
+      navigation.navigate('Auth');
+    }
+  }, [isAuthenticated, navigation]);
 
   return (
     <MainContainer style={{ flex: 1, justifyContent: 'center' }}>
       <TextComponent>Home</TextComponent>
-      <TouchableNativeFeedback foreground onPress={() => signOutStart()}>
+      <TouchableNativeFeedback foreground onPress={() => signOut()}>
         <View>
           <TextComponent>Logout</TextComponent>
         </View>
       </TouchableNativeFeedback>
-      <TouchableNativeFeedback onPress={() => setThemeStart()}>
+      <TouchableNativeFeedback onPress={() => setDarkTheme()}>
         <View style={{ marginVertical: 30 }}>
           <TextComponent>Dark Theme</TextComponent>
         </View>
       </TouchableNativeFeedback>
-      <TouchableNativeFeedback onPress={() => setThemeLightStart()}>
+      <TouchableNativeFeedback onPress={() => setLightTheme()}>
         <View>
           <TextComponent>LightTheme</TextComponent>
         </View>
       </TouchableNativeFeedback>
     </MainContainer>
   );
+};
+
+HomeScreen.propTypes = {
+  setThemeLightStart: PropTypes.func.isRequired,
+  setThemeStart: PropTypes.func.isRequired,
+  loadUserStart: PropTypes.func.isRequired,
+  signOutStart: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -66,9 +80,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
-
-HomeScreen.navigationOptions = {
-  headerTitle: 'd',
-};
-
-const styles = StyleSheet.create({});

@@ -1,24 +1,26 @@
-import React from 'react'
-// import { StyleSheet, Text, View } from 'react-native'
-import Navigation from './Navigation'
-import MainContainer from '../screens/MainContainer'
+import React from 'react';
 import { createStructuredSelector } from 'reselect';
-import { selectBackground } from '../redux-sagas/theme/theme.selector'
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Navigation from './Navigation';
+import MainContainer from '../screens/MainContainer';
+import { selectBackground } from '../redux-sagas/theme/theme.selector';
 
 const TabNavigation = ({ background }) => {
-     const theme = background === 'black' ? 'dark' : 'light'
+  const theme = background === 'black' ? 'dark' : 'light';
 
-     return (
-          <MainContainer>
-               <Navigation theme={theme} />
-          </MainContainer>
-     )
-}
+  return (
+    <MainContainer>
+      <Navigation theme={theme} />
+    </MainContainer>
+  );
+};
+
+TabNavigation.propTypes = {
+  background: PropTypes.string.isRequired
+};
 const mapStateToProps = createStructuredSelector({
-     background: selectBackground
-})
+  background: selectBackground,
+});
 
-
-export default connect(mapStateToProps)(TabNavigation)
-
+export default connect(mapStateToProps)(TabNavigation);

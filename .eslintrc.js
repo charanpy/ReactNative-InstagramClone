@@ -1,5 +1,7 @@
 module.exports = {
-  extends: 'airbnb',
+  extends: [
+    'airbnb'
+  ],
   plugins: [
     'react',
     'react-native',
@@ -24,8 +26,9 @@ module.exports = {
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,
     'react-native/no-color-literals': 0,
-    'react-native/no-raw-text': 2,
+    'react-native/no-raw-text': 0,
     'react-native/no-single-element-style-arrays': 2,
+    'jsx-quotes': ['error', 'prefer-single'],
   },
   globals: {
     fetch: false
