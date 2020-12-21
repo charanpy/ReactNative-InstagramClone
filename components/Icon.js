@@ -1,18 +1,16 @@
-import React from 'react'
-import { View } from 'react-native'
+import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect'
-import { selectColor } from '../redux-sagas/theme/theme.selector'
-import MainContainer from '../screens/MainContainer'
-const Icon = ({ Component, name, size, color }) => {
-     return (
-          <Component name={name} size={size} color={color} />
+import { createStructuredSelector } from 'reselect';
+import { selectColor } from '../redux-sagas/theme/theme.selector';
 
-     )
-}
+const Icon = ({
+  Component, name, size, color, style
+}) => {
+  return <Component name={name} size={size} color={color} style={style} />;
+};
 
 const mapStateToProps = createStructuredSelector({
-     color: selectColor
-})
+  color: selectColor,
+});
 
-export default connect(mapStateToProps)(Icon)
+export default connect(mapStateToProps)(Icon);

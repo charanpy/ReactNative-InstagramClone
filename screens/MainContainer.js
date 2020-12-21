@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { SafeAreaView, View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectAlertMessage } from '../redux-sagas/alert/alert.selector';
 import { selectBackground } from '../redux-sagas/theme/theme.selector';
 
-const MainContainer = ({
-  children, background, alert, style
-}) => {
+const MainContainer = ({ children, background, alert, style, modal }) => {
   const [backgroundColor, setBackgroundColor] = useState(background);
   useEffect(() => {
     if (backgroundColor === background) return;
@@ -24,12 +22,14 @@ const MainContainer = ({
   } else {
     AppTheme = backgroundColor;
   }
+  const modalColor = background === 'black' ? '#333' : 'white';
   return (
     <SafeAreaView style={{ flex: 1, position: 'relative' }}>
+      <StatusBar backgroundColor={AppTheme} />
       <View
         style={{
           position: 'relative',
-          backgroundColor: AppTheme,
+          backgroundColor: modal ? modalColor : AppTheme,
           flex: 1,
           ...style,
         }}

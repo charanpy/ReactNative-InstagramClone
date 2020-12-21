@@ -41,7 +41,7 @@ const home = createStackNavigator(
   },
   {
     defaultNavigationOptions: ({ theme }) => {
-      console.log('default', theme);
+
       return {
         headerTitle: 'Instagram',
         headerStyle: {
@@ -62,6 +62,10 @@ const home = createStackNavigator(
 
 const addPost = createStackNavigator({
   post: AddPost,
+}, {
+  defaultNavigationOptions: {
+    headerShown: false
+  }
 });
 
 const App = createBottomTabNavigator(
@@ -69,12 +73,19 @@ const App = createBottomTabNavigator(
     Home: {
       screen: home,
     },
-    AddPost: addPost,
+    AddPost: {
+      screen: addPost
+
+    },
+
     Like: LikeScreen,
     Profile: ProfileScreen,
   },
   {
+
     defaultNavigationOptions: ({ navigation, theme }) => ({
+      animationEnabled: true,
+      swipeEnabled: true,
       tabBarIcon: ({ focused }) => {
         console.log('theme', theme);
         console.log(navigation.theme);
@@ -138,5 +149,6 @@ export default createAppContainer(
   }),
   {
     initialRouteName: 'Splash',
+
   }
 );

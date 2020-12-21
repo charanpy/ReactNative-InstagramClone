@@ -4,10 +4,12 @@ import { setTheme } from '../../helper/utils/token';
 const initialState = {
   background: 'white',
   color: 'black',
+  loading: null
 };
 
 const themeReducer = (state = initialState, action) => {
   switch (action.type) {
+
     case themeActionTypes.SET_COLOR_THEME:
       setTheme('dark');
       return {
