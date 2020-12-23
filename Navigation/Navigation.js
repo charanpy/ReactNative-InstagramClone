@@ -64,7 +64,9 @@ const addPost = createStackNavigator({
   post: AddPost,
 }, {
   defaultNavigationOptions: {
-    headerShown: false
+    headerShown: false,
+    unmountOnBlur: true,
+    tabBarVisible: false
   }
 });
 
@@ -74,8 +76,7 @@ const App = createBottomTabNavigator(
       screen: home,
     },
     AddPost: {
-      screen: addPost
-
+      screen: addPost,
     },
 
     Like: LikeScreen,
@@ -86,6 +87,8 @@ const App = createBottomTabNavigator(
     defaultNavigationOptions: ({ navigation, theme }) => ({
       animationEnabled: true,
       swipeEnabled: true,
+      unmountOnBlur: true,
+      tabBarVisible: navigation.state.routeName !== 'AddPost',
       tabBarIcon: ({ focused }) => {
         console.log('theme', theme);
         console.log(navigation.theme);
@@ -121,6 +124,7 @@ const App = createBottomTabNavigator(
         style: {
           backgroundColor: theme === 'dark' ? '#000' : '#fff',
         },
+        unmountOnBlur: true
       },
     }),
   }

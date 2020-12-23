@@ -5,7 +5,9 @@ export const initialState = {
   albumName: 'Instagram',
   selectedImage: [],
   albumList: [],
-  modalVisible: false
+  modalVisible: false,
+  multiple: false,
+  selectedImagesFromAlbum: [],
 };
 
 const mediaList = (albumList) => {
@@ -33,6 +35,23 @@ const setSelectedImageFromALbumName = async (album) => {
   return photoFromAlbum.assets;
 };
 
+const addImage = (payload, state) => {
+
+  let updatedPhotoArray = [];
+  if (payload.multiple) {
+    updatedPhotoArray = [photoUri];
+  } else {
+    updatedPhotoArray = [...state.selectedImagesFromAlbum, payload.photoUri];
+  }
+  return updatedPhotoArray;
+};
+
+const removeImage = (photoUri, state) => {
+  const getAllPhotos = state.selectedImagesFromAlbum;
+  const updatedPhotos = getAllPhotos.filter((uri) => uri !== photoUri);
+  return updatedPhotos;
+};
+
 export const PostReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_ALBUM_LIST':
@@ -55,12 +74,29 @@ export const PostReducer = (state = initialState, action) => {
         ...state,
         albumName: action.payload,
         media: setSelectedImageFromALbumName(action.payload),
-        selectedImage: setDefaultImage(state.media)
+        selectedImage: setDefaultImage(state.media),
       };
     case 'MODAL':
       return {
         ...state,
-        modalVisible: !state.modalVisible
+        modalVisible: !state.modalVisible,
+      };
+    case 'EMPTY':
+      return initialState;
+    case 'SET_MULTIPLE_IMAGE':
+      return {
+        ...state,
+        multiple: !state.multiple,
+      };
+    case 'ADD_IMAGE':
+      return {
+        ...state,
+        selectedImagesFromAlbum: addImage(action.payload, state)
+      };
+    case 'REMOVE_IMAGE':
+      return {
+        ...state,
+        selectedImagesFromAlbum: removeImage(action.payload, state),
       };
     default:
       return state;

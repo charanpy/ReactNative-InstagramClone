@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     alignItems: 'center',
-    marginTop: '5%'
+    marginTop: '2%'
   },
   Post_LeftContainer: {
     width: '50%',
