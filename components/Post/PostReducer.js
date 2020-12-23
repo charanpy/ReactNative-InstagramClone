@@ -38,8 +38,8 @@ const setSelectedImageFromALbumName = async (album) => {
 const addImage = (payload, state) => {
 
   let updatedPhotoArray = [];
-  if (payload.multiple) {
-    updatedPhotoArray = [photoUri];
+  if (!payload.multiple) {
+    updatedPhotoArray = [payload.photoUri];
   } else {
     updatedPhotoArray = [...state.selectedImagesFromAlbum, payload.photoUri];
   }
@@ -87,10 +87,12 @@ export const PostReducer = (state = initialState, action) => {
       return {
         ...state,
         multiple: !state.multiple,
+        selectedImagesFromAlbum: state.multiple === false ? [] : state.selectedImagesFromAlbum
       };
     case 'ADD_IMAGE':
       return {
         ...state,
+        multiple: action.payload.multiple,
         selectedImagesFromAlbum: addImage(action.payload, state)
       };
     case 'REMOVE_IMAGE':

@@ -11,19 +11,26 @@ import ListPhotos from '../../components/Post/ListPhotos';
 
 const AddPost = ({ navigation }) => {
   const [state, dispatch] = useReducer(PostReducer, initialState);
+
   const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
-
-    console.log(Permissions.getAsync(Permissions.CAMERA_ROLL));
     const askPermission = async () => {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-
-      if (status !== 'granted') {
-        navigation.navigate('Home');
+      const isCameraRollEnabled = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+      if (isCameraRollEnabled.granted) {
+        setLoaded(true);
+        return;
       }
+
+      const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (granted) {
+        const cameraRollRes = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        console.log(2, cameraRollRes);
+        setLoaded(true);
+      }
+
     };
     askPermission();
-    setLoaded(true);
   }, [navigation, loaded]);
 
   useEffect(() => {
@@ -50,33 +57,32 @@ const AddPost = ({ navigation }) => {
   }, [loaded, navigation]);
   return (
     <>
-      { loaded
-        && (
-          <MainContainer
+      {loaded && (
+        <MainContainer
+          style={{
+            flex: 1,
+          }}
+        >
+          <View
             style={{
               flex: 1,
+              flexDirection: 'column',
             }}
           >
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'column',
+            <PostHeader />
+            <PostContext.Provider
+              value={{
+                state,
+                dispatch,
               }}
             >
-              <PostHeader />
-              <PostContext.Provider
-                value={{
-                  state,
-                  dispatch,
-                }}
-              >
-                <SelectedImage />
-                <SelectAlbum />
-                <ListPhotos />
-              </PostContext.Provider>
-            </View>
-          </MainContainer>
-        )}
+              <SelectedImage />
+              <SelectAlbum />
+              <ListPhotos />
+            </PostContext.Provider>
+          </View>
+        </MainContainer>
+      )}
     </>
   );
 };

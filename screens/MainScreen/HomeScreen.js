@@ -27,8 +27,7 @@ const HomeScreen = ({
   useEffect(() => {
     loadUser();
   }, [loadUser]);
-  const data = getTheme().then((res) => res);
-  console.log(data);
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigation.navigate('Auth');

@@ -1,11 +1,9 @@
 import React, { useContext, useEffect } from 'react';
-import {
-  StyleSheet, View, TouchableOpacity, Image
-} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import TextComponent from '../TextComponent';
 import IconComponent from '../Icon';
-import Media, { PostContext } from './helper/Image';
+import Media, { PostContext, lauchCamera } from './helper/Image';
 
 const SelectedImage = () => {
   const { state, dispatch } = useContext(PostContext);
@@ -26,6 +24,25 @@ const SelectedImage = () => {
     state.multiple,
     state.selectedImagesFromAlbum,
   ]);
+
+  const getPhotoFromCamera = async () => {
+    const photoDetail = await lauchCamera();
+    console.log(photoDetail, 6);
+    if (photoDetail?.cancelled) {
+      console.log('cancelled');
+      return;
+    }
+    if (!photoDetail?.cancelled && photoDetail?.uri) {
+      const { uri } = photoDetail;
+      dispatch({
+        type: 'ADD_IMAGE',
+        payload: {
+          photoUri: uri,
+          multiple: false,
+        },
+      });
+    }
+  };
   return (
     <>
       {(state.selectedImagesFromAlbum || state.selectedImage) && (
@@ -61,7 +78,7 @@ const SelectedImage = () => {
             <View
               style={{
                 justifyContent: 'flex-end',
-                marginLeft: '2%',
+                marginLeft: '3%',
               }}
             >
               <IconComponent
@@ -80,22 +97,47 @@ const SelectedImage = () => {
           <TouchableOpacity
             onPress={() => dispatch({ type: 'SET_MULTIPLE_IMAGE' })}
           >
-            <IconComponent
-              Component={MaterialCommunityIcons}
-              name='image-filter-none'
-              size={23}
-            />
+            <View
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: 30,
+                backgroundColor: state.multiple ? '#0275d8' : '#333',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <IconComponent
+                Component={MaterialCommunityIcons}
+                name='image-filter-none'
+                size={18}
+              />
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
-              paddingLeft: 10,
+              paddingLeft: 20,
+              paddingRight: 20,
             }}
+            onPress={getPhotoFromCamera}
           >
-            <IconComponent
-              Component={MaterialCommunityIcons}
-              name='camera-outline'
-              size={23}
-            />
+            <View
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: 30,
+                backgroundColor: '#333',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <IconComponent
+                Component={MaterialCommunityIcons}
+                name='camera-outline'
+                size={18}
+
+              />
+            </View>
           </TouchableOpacity>
         </View>
       </View>
