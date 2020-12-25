@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
+import {
+  StyleSheet, View, TouchableOpacity, Image
+} from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import TextComponent from '../TextComponent';
 import IconComponent from '../Icon';
@@ -7,6 +9,11 @@ import Media, { PostContext, lauchCamera } from './helper/Image';
 
 const SelectedImage = () => {
   const { state, dispatch } = useContext(PostContext);
+  useEffect(() => {
+    console.log('selectedImge render');
+    console.log(' ');
+
+  });
   useEffect(() => {
     async function getSelectedImage() {
       const getPhotosFromAlbum = await Media.getPhotosFromAlbum(
@@ -21,13 +28,13 @@ const SelectedImage = () => {
   }, [
     state.albumName,
     dispatch,
-    state.multiple,
-    state.selectedImagesFromAlbum,
+    // state.multiple,
+    // state.selectedImagesFromAlbum,
   ]);
 
   const getPhotoFromCamera = async () => {
     const photoDetail = await lauchCamera();
-    console.log(photoDetail, 6);
+    // console.log(photoDetail, 6);
     if (photoDetail?.cancelled) {
       console.log('cancelled');
       return;
@@ -51,7 +58,7 @@ const SelectedImage = () => {
             source={{
               uri:
                 state.selectedImagesFromAlbum[
-                state.selectedImagesFromAlbum.length - 1
+                  state.selectedImagesFromAlbum.length - 1
                 ] || state.selectedImage[state.selectedImage.length - 1],
               isStatic: true,
             }}
@@ -145,7 +152,7 @@ const SelectedImage = () => {
   );
 };
 
-export default SelectedImage;
+export default React.memo(SelectedImage);
 
 const styles = StyleSheet.create({
   Selected_Image: {

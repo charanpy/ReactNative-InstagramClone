@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   FlatList,
   TouchableOpacity,
@@ -12,28 +12,16 @@ import TextComponent from '../TextComponent';
 
 const ListPhotos = () => {
   const { state, dispatch } = useContext(PostContext);
-  const [selectedImage, setSelectedImage] = useState({});
-
   useEffect(() => {
-    if (!state.multiple) {
-      setSelectedImage({});
-    }
-    setSelectedImage({});
-  }, [state.multiple, selectedImage.length]);
+    console.log('ListPhoto render');
+    console.log(' ');
+  }, []);
+
   const screenWidth = Dimensions.get('window').width / 4 - 5;
-  const selectedImagesFromAlbum = (photoUri, photoId) => {
-    if (selectedImage[photoId]) {
-      setSelectedImage((previousImage) => {
-        console.log(true);
-        const imageRef = { ...previousImage };
-        delete imageRef[photoId];
-        return imageRef;
-      });
+  const selectedImagesFromAlbum = (photoUri) => {
+    if (state.selectedImagesFromAlbum.includes(photoUri)) {
       dispatch({ type: 'REMOVE_IMAGE', payload: photoUri });
     } else if (!state.multiple) {
-      setSelectedImage({
-        [photoId]: photoUri,
-      });
       dispatch({
         type: 'ADD_IMAGE',
         payload: {
@@ -42,12 +30,6 @@ const ListPhotos = () => {
         },
       });
     } else {
-      setSelectedImage((previousImage) => {
-        return {
-          ...previousImage,
-          [photoId]: photoUri,
-        };
-      });
       dispatch({
         type: 'ADD_IMAGE',
         payload: { photoUri, multiple: state.multiple },
@@ -56,18 +38,15 @@ const ListPhotos = () => {
   };
   // console.log(selectedImage, state.selectedImagesFromAlbum, state.multiple);
   const getPhotos = ({ item }) => {
-    console.log(1, state.media[item]);
     return (
       <>
-
         <TouchableOpacity
           style={{
             position: 'relative',
           }}
-          onPress={() => selectedImagesFromAlbum(state.media[item], item)}
+          onPress={() => selectedImagesFromAlbum(state.media[item])}
           onLongPress={() => dispatch({ type: 'SET_MULTIPLE_IMAGE' })}
         >
-
           <Image
             source={{
               // eslint-disable-next-line
@@ -89,7 +68,9 @@ const ListPhotos = () => {
               height: '100%',
               top: 0,
               left: 0,
-              backgroundColor: selectedImage[item]
+              backgroundColor: state.selectedImagesFromAlbum.includes(
+                state.media[item]
+              )
                 ? 'rgba(255,255,255,0.40);'
                 : 'transparent',
             }}
@@ -99,9 +80,11 @@ const ListPhotos = () => {
               style={[
                 styles.Selected,
                 {
-                  backgroundColor: selectedImage[item]
-                    ? '#0275d8'
-                    : '#292b2c',
+                  backgroundColor:
+                    state.selectedImagesFromAlbum.indexOf(state.media[item]) >=
+                      0
+                      ? '#0275d8'
+                      : '#292b2c',
                   borderColor: 'white',
                   borderWidth: 2,
                 },
@@ -115,13 +98,11 @@ const ListPhotos = () => {
               >
                 {state.selectedImagesFromAlbum.indexOf(state.media[item]) >= 0
                   ? state.selectedImagesFromAlbum.indexOf(state.media[item]) + 1
-
                   : ''}
               </TextComponent>
             </View>
           )}
         </TouchableOpacity>
-
       </>
     );
   };

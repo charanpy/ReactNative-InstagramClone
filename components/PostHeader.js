@@ -1,22 +1,33 @@
 import React from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import {
+  StyleSheet, View, SafeAreaView, TouchableOpacity
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import TextComponent from './TextComponent';
 import IconComponent from './Icon';
 
-const PostHeader = () => {
+const PostHeader = ({ onClick, navigation }) => {
+  const handleCancelButton = () => {
+    onClick();
+    navigation.navigate('Home');
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.Post_Header}>
-        <View style={styles.Post_LeftContainer}>
-          <IconComponent Component={Ionicons} name='md-close' size={25} />
-          <TextComponent style={styles.Post_Text}>Add Post</TextComponent>
-        </View>
-        <View style={styles.Post_RightContainer}>
-          <View style={{ marginRight: '8%' }}>
-            <Ionicons name='md-checkmark' size={28} color='blue' />
+        <TouchableOpacity onPress={handleCancelButton} style={{ width: '50%' }}>
+          <View style={styles.Post_LeftContainer}>
+            <IconComponent Component={Ionicons} name='md-close' size={25} />
+            <TextComponent style={styles.Post_Text}>Add Post</TextComponent>
           </View>
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ width: '50%' }}>
+          <View style={styles.Post_RightContainer}>
+            <View style={{ marginRight: '8%' }}>
+              <Ionicons name='md-checkmark' size={28} color='blue' />
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -31,16 +42,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     alignItems: 'center',
-    marginTop: '2%'
+    marginTop: '2%',
   },
   Post_LeftContainer: {
-    width: '50%',
     alignItems: 'center',
     justifyContent: 'space-around',
     flexDirection: 'row',
   },
   Post_RightContainer: {
-    width: '50%',
     justifyContent: 'flex-end',
     flexDirection: 'row',
   },

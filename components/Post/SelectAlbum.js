@@ -14,6 +14,11 @@ import MainContainer from '../../screens/MainContainer';
 const SelectAlbum = () => {
   const { state, dispatch } = useContext(PostContext);
   useEffect(() => {
+    console.log('selectAlbum render');
+    console.log(" ");
+  }, [])
+
+  useEffect(() => {
     async function getListAlbum() {
       const getAlbumList = await Media.getAlbumList();
       dispatch({ type: 'GET_ALBUM_LIST', payload: getAlbumList });

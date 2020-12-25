@@ -52,6 +52,16 @@ const removeImage = (photoUri, state) => {
   return updatedPhotos;
 };
 
+const IsMultiple = (state) => {
+  if (state.multiple) {
+    console.log('A');
+    return [];
+  }
+  console.log('B');
+  return state.selectedImagesFromAlbum;
+
+};
+
 export const PostReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_ALBUM_LIST':
@@ -87,7 +97,7 @@ export const PostReducer = (state = initialState, action) => {
       return {
         ...state,
         multiple: !state.multiple,
-        selectedImagesFromAlbum: state.multiple === false ? [] : state.selectedImagesFromAlbum
+        selectedImagesFromAlbum: IsMultiple(state)
       };
     case 'ADD_IMAGE':
       return {

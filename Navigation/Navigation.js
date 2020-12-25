@@ -4,8 +4,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {
   Ionicons,
-  AntDesign,
   MaterialCommunityIcons,
+  MaterialIcons
 } from '@expo/vector-icons';
 import Login from '../screens/AuthScreen/Login/Login.screen';
 import Register from '../screens/AuthScreen/Register/Register.screen';
@@ -40,35 +40,57 @@ const home = createStackNavigator(
     home: HomeScreen,
   },
   {
-    defaultNavigationOptions: ({ theme }) => {
-
+    defaultNavigationOptions: ({ theme, navigation }) => {
       return {
         headerTitle: 'Instagram',
+        headerLeft: () => (
+          <Header
+            theme={theme}
+            Component={MaterialIcons}
+            name='add-box'
+            left={15}
+            onClick={() => navigation.navigate('AddPost')}
+          />
+        ),
         headerStyle: {
           backgroundColor: theme === 'dark' ? 'black' : 'white',
         },
-        headerRight: () => <Header theme={theme} />,
+        headerRight: () => (
+          <Header
+            theme={theme}
+            Component={MaterialCommunityIcons}
+            name='facebook-messenger'
+            right={15}
+            onClick={() => console.log('hi')}
+          />
+        ),
         headerTitleStyle: {
           justifyContent: 'center',
           fontFamily: 'Billabong',
-          marginTop: 10,
-          marginLeft: '10%',
-          fontSize: 35,
+          textAlign: 'center',
+          alignItems: 'center',
+          textAlignVertical: 'center',
+          flex: 1,
+          fontSize: 36,
+          marginTop: '5%'
         },
       };
     },
   }
 );
 
-const addPost = createStackNavigator({
-  post: AddPost,
-}, {
-  defaultNavigationOptions: {
-    headerShown: false,
-    unmountOnBlur: true,
-    tabBarVisible: false
+const addPost = createStackNavigator(
+  {
+    post: AddPost,
+  },
+  {
+    defaultNavigationOptions: {
+      headerShown: false,
+      unmountOnBlur: true,
+      tabBarVisible: false,
+    },
   }
-});
+);
 
 const App = createBottomTabNavigator(
   {
@@ -83,7 +105,6 @@ const App = createBottomTabNavigator(
     Profile: ProfileScreen,
   },
   {
-
     defaultNavigationOptions: ({ navigation, theme }) => ({
       animationEnabled: true,
       swipeEnabled: true,
@@ -100,8 +121,8 @@ const App = createBottomTabNavigator(
           IconComponent = focused ? Ionicons : MaterialCommunityIcons;
           iconName = focused ? 'md-home' : 'home-outline';
         } else if (routeName === 'AddPost') {
-          IconComponent = AntDesign;
-          iconName = 'plussquareo';
+          IconComponent = Ionicons;
+          iconName = focused ? 'md-search' : 'ios-search';
         } else if (routeName === 'Like') {
           IconComponent = focused ? Ionicons : MaterialCommunityIcons;
           iconName = focused ? 'md-heart' : 'heart-outline';
@@ -124,7 +145,7 @@ const App = createBottomTabNavigator(
         style: {
           backgroundColor: theme === 'dark' ? '#000' : '#fff',
         },
-        unmountOnBlur: true
+        unmountOnBlur: true,
       },
     }),
   }
@@ -153,6 +174,5 @@ export default createAppContainer(
   }),
   {
     initialRouteName: 'Splash',
-
   }
 );
