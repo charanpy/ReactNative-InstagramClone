@@ -92,6 +92,17 @@ const addPost = createStackNavigator(
   }
 );
 
+const profileScreen = createStackNavigator(
+  {
+    profile: ProfileScreen
+  },
+  {
+    defaultNavigationOptions: {
+      headerShown: false
+    }
+  }
+);
+
 const App = createBottomTabNavigator(
   {
     Home: {
@@ -102,7 +113,9 @@ const App = createBottomTabNavigator(
     },
 
     Like: LikeScreen,
-    Profile: ProfileScreen,
+    Profile: {
+      screen: profileScreen
+    },
   },
   {
     defaultNavigationOptions: ({ navigation, theme }) => ({

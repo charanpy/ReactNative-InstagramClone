@@ -36,3 +36,8 @@ export const selectIsAuthenticated = createSelector(
   [selectUser],
   (auth) => auth.isAuthenticated
 );
+
+export const selectUserId = createSelector(
+  [selectUser],
+  (userId) => userId.user.profileId
+);
