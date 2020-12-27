@@ -19,6 +19,7 @@ import AddPost from '../screens/MainScreen/AddPost';
 import LikeScreen from '../screens/MainScreen/LikeScreen';
 import ProfileScreen from '../screens/MainScreen/ProfileScreen';
 import Header from '../components/Header';
+import ProfileHeader from '../components/Profile/ProfileHeader';
 
 const AuthenticationNavigator = createStackNavigator(
   {
@@ -97,9 +98,16 @@ const profileScreen = createStackNavigator(
     profile: ProfileScreen
   },
   {
-    defaultNavigationOptions: {
-      headerShown: false
+    defaultNavigationOptions: ({ theme }) => ({
+      // headerShown: false,
+      headerTitle: () => <ProfileHeader />,
+      headerStyle: {
+        height: 60,
+        backgroundColor: theme === 'dark' ? 'black' : 'white'
+
+      }
     }
+    )
   }
 );
 

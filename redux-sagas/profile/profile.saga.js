@@ -1,4 +1,6 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import {
+  takeLatest, put, all, call
+} from 'redux-saga/effects';
 import axios from 'axios';
 import { profileActionTypes } from './profile.type';
 import { getData, getUniqueId } from '../../helper/utils/token';

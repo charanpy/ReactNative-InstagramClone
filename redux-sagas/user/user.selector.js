@@ -41,3 +41,13 @@ export const selectUserId = createSelector(
   [selectUser],
   (userId) => userId.user.profileId
 );
+
+export const selectUserProfile = createSelector(
+  [selectUser],
+  (userInfo) => userInfo.user
+);
+
+export const selectUsername = createSelector(
+  [selectUser],
+  (userInfo) => userInfo.user?.username
+);

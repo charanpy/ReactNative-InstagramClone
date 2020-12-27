@@ -1,9 +1,4 @@
-import {
-  takeLatest,
-  put,
-  all,
-  call
-} from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 import { userActionTypes } from './user.type';
@@ -119,33 +114,31 @@ const dat = async () => {
   });
 };
 
-const loadUserApi = async () => {
+const loadUserApi = async (url, id = null) => {
   dat();
 
   return getData().then(async (res) => {
+    const apiUrl = id
+      ? `https://instamernclone.herokuapp.com/api/v1/${url}/${id}`
+      : `https://instamernclone.herokuapp.com/api/v1/${url}`;
     const config = {
       headers: {
         Authorization: `Bearer ${res}`,
       },
     };
-    const response = await axios.get(
-      'https://instamernclone.herokuapp.com/api/v1/users/me',
-      config
-    );
+    const response = await axios.get(apiUrl, config);
     return response;
   });
 };
 
 export function* loadUser() {
   try {
-    const res = yield call(loadUserApi);
-    const { _id: profileId, username, user: userId } = res.data.profile;
-    const userInfo = {
-      profileId,
-      username,
-      userId,
-    };
-    yield put(loadUserSuccess(userInfo));
+    const getProfileId = yield call(loadUserApi, 'users/me');
+    console.log(getProfileId);
+    const { _id: profileId } = getProfileId.data.profile;
+    const getProfile = yield call(loadUserApi, `profile/${profileId}`);
+    console.log(getProfile);
+    yield put(loadUserSuccess(getProfile.data.data.profile));
   } catch (e) {
     console.log(e, e.response);
     yield put(authError());

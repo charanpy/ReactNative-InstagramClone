@@ -1,38 +1,14 @@
-import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { createStructuredSelector } from 'reselect';
-import { getProfileStart } from '../../redux-sagas/profile/profile.action';
-import { selectUserId } from '../../redux-sagas/user/user.selector';
+import React from 'react';
+import { View, Text } from 'react-native';
+import DisplayProfile from '../../components/Profile/DisplayProfile';
 
-const ProfileScreen = ({ userObject: profileId, getProfileStart: getProfile, navigation }) => {
-  useEffect(() => {
-
-    if (!profileId) {
-      navigation.navigate('Home');
-    }
-    getProfile(profileId);
-  }, [getProfile, navigation, profileId]);
+const ProfileScreen = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Text>Profile</Text>
+    <View>
+      <Text>prof</Text>
+      <DisplayProfile />
     </View>
   );
 };
 
-ProfileScreen.propTypes = {
-  userObject: PropTypes.string,
-  getProfileStart: PropTypes.func.isRequired,
-};
-ProfileScreen.defaultProps = {
-  userObject: null
-};
-const mapStateToProps = createStructuredSelector({
-  userObject: selectUserId,
-});
-const mapDispatchToProps = (dispatch) => ({
-  getProfileStart: (userId) => dispatch(getProfileStart(userId)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
+export default ProfileScreen;
