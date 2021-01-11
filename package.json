@@ -24,11 +24,11 @@
     "expo": "~39.0.2",
     "expo-file-system": "~9.2.0",
     "expo-font": "~8.3.0",
+    "expo-image-picker": "~9.1.1",
     "expo-media-library": "~9.2.1",
     "expo-permissions": "~9.3.0",
     "expo-secure-store": "~9.2.0",
     "expo-status-bar": "~1.0.2",
-    "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
@@ -38,6 +38,7 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
+    "react-native-svg-uri": "^1.2.3",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.3",
@@ -54,8 +55,7 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.10.1",
     "webpack-cli": "^4.2.0",
-    "webpack-dev-server": "^3.11.0",
-    "expo-image-picker": "~9.1.1"
+    "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -70,7 +70,8 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-native": "^3.10.0",
-    "eslint-plugin-redux-saga": "^1.2.1"
+    "eslint-plugin-redux-saga": "^1.2.1",
+    "prop-types": "^15.7.2"
   },
   "private": true
 }
