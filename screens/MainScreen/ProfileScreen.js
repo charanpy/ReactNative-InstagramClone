@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import DisplayProfile from '../../components/Profile/DisplayProfile';
+import ProfileInfo from '../../components/Profile/ProfileInfo';
+import MainContainer from '../MainContainer';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   return (
-    <View>
-      <Text>prof</Text>
+    <MainContainer>
       <DisplayProfile />
-    </View>
+      <ProfileInfo onClick={() => navigation.navigate('EditProfile')} />
+    </MainContainer>
   );
 };
 

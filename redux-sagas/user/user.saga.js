@@ -1,4 +1,6 @@
-import { takeLatest, put, all, call } from 'redux-saga/effects';
+import {
+  takeLatest, put, all, call
+} from 'redux-saga/effects';
 import axios from 'axios';
 
 import { userActionTypes } from './user.type';
@@ -16,6 +18,7 @@ import {
   signOutSuccess,
   signOutFailure,
 } from './user.action';
+import { setUserProfile } from '../profile/profile.action';
 import { getData, getUniqueId } from '../../helper/utils/token';
 import setAuthToken from '../../helper/utils/setAuthToken';
 import { setAlert } from '../alert/alert.action';
@@ -139,6 +142,7 @@ export function* loadUser() {
     const getProfile = yield call(loadUserApi, `profile/${profileId}`);
     console.log(getProfile);
     yield put(loadUserSuccess(getProfile.data.data.profile));
+    yield put(setUserProfile(getProfile.data.data.profile));
   } catch (e) {
     console.log(e, e.response);
     yield put(authError());

@@ -20,6 +20,7 @@ import LikeScreen from '../screens/MainScreen/LikeScreen';
 import ProfileScreen from '../screens/MainScreen/ProfileScreen';
 import Header from '../components/Header';
 import ProfileHeader from '../components/Profile/ProfileHeader';
+import EditProfile from '../screens/MainScreen/edit-profile/EditProfileContainer';
 
 const AuthenticationNavigator = createStackNavigator(
   {
@@ -95,21 +96,38 @@ const addPost = createStackNavigator(
 
 const profileScreen = createStackNavigator(
   {
-    profile: ProfileScreen
-  },
-  {
-    defaultNavigationOptions: ({ theme }) => ({
-      // headerShown: false,
-      headerTitle: () => <ProfileHeader />,
-      headerStyle: {
-        height: 60,
-        backgroundColor: theme === 'dark' ? 'black' : 'white'
-
+    profile: ProfileScreen,
+    EditProfile: {
+      screen: EditProfile,
+      navigationOptions: {
+        headerShown: false,
       }
     }
-    )
+  },
+  {
+    defaultNavigationOptions: ({ navigation: { state: { routeName } }, theme }) => {
+      return {
+        headerTitle: () => <ProfileHeader headerTitle={routeName} />,
+        headerStyle: {
+          height: 60,
+          backgroundColor: theme === 'dark' ? 'black' : 'white'
+        },
+
+      };
+    }
   }
 );
+
+profileScreen.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarVisible
+  };
+};
+
 
 const App = createBottomTabNavigator(
   {

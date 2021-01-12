@@ -78,6 +78,8 @@ const AddPost = ({ navigation }) => {
             <PostHeader
               onClick={clearUpDataOnUnMount}
               navigation={navigation}
+              route='Home'
+              headerTitle='Add Post'
             />
             <PostContext.Provider
               value={{

@@ -6,10 +6,12 @@ import { Ionicons } from '@expo/vector-icons';
 import TextComponent from './TextComponent';
 import IconComponent from './Icon';
 
-const PostHeader = ({ onClick, navigation }) => {
+const PostHeader = ({
+  onClick, navigation, headerTitle, route
+}) => {
   const handleCancelButton = () => {
     onClick();
-    navigation.navigate('Home');
+    navigation.navigate(route);
   };
 
   return (
@@ -18,7 +20,7 @@ const PostHeader = ({ onClick, navigation }) => {
         <TouchableOpacity onPress={handleCancelButton} style={{ width: '50%' }}>
           <View style={styles.Post_LeftContainer}>
             <IconComponent Component={Ionicons} name='md-close' size={25} />
-            <TextComponent style={styles.Post_Text}>Add Post</TextComponent>
+            <TextComponent style={styles.Post_Text}>{headerTitle}</TextComponent>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={{ width: '50%' }}>

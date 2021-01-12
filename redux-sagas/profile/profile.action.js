@@ -12,5 +12,13 @@ export const getProfileSuccess = (profile) => ({
 
 export const getProfileFailure = () => ({
   type: profileActionTypes.GET_PROFILE_FAILURE,
+});
 
+export const setUserProfile = (userProfile) => ({
+  type: profileActionTypes.SET_USER_PROFILE,
+  payload: userProfile
+});
+
+export const setModalVisible = () => ({
+  type: profileActionTypes.SET_MODAL_VISIBLE
 });

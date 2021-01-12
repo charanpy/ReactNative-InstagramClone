@@ -10,7 +10,7 @@ import {
   signOutStart,
 } from '../../redux-sagas/user/user.action';
 import { selectIsAuthenticated } from '../../redux-sagas/user/user.selector';
-import { getTheme } from '../../helper/utils/token';
+// import { getTheme } from '../../helper/utils/token';
 import {
   setThemeStart,
   setThemeLightStart,

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').width / 4,
     borderWidth: 1,
     borderRadius: Dimensions.get('window').width / 4,
-    marginLeft: '5%',
+    marginLeft: '10%',
     // width: Dimensions.get('window').width / 3,
   },
 
