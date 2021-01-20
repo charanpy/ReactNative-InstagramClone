@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { TextInput, Pressable } from 'react-native';
 import TextComponent from '../../TextComponent';
 
 const EditTextInput = ({
@@ -9,9 +9,15 @@ const EditTextInput = ({
   fieldName,
   isEditable,
   fieldColor,
+  onFocus,
+  value = '',
+  handleChange = () => { }
 }) => {
   return (
-    <View style={{ marginBottom: '4%' }}>
+    <Pressable
+      style={{ marginBottom: '4%' }}
+      onPress={() => onFocus(fieldName, defaultInputValue)}
+    >
       <TextComponent style={{ marginBottom: '2%', color: fieldColor }}>
         {fieldName}
       </TextComponent>
@@ -23,8 +29,11 @@ const EditTextInput = ({
           borderBottomColor: textInputBorderColor,
         }}
         editable={isEditable}
+        onFocus={onFocus}
+        value={value || defaultInputValue}
+        onChangeText={handleChange}
       />
-    </View>
+    </Pressable>
   );
 };
 

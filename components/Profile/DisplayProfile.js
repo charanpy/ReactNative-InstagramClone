@@ -7,13 +7,18 @@ import { createStructuredSelector } from 'reselect';
 import { selectUserProfile } from '../../redux-sagas/user/user.selector';
 import TextComponent from '../TextComponent';
 import AddProfilePhoto from './AddProfilePhoto';
+import profileSelector from '../../redux-sagas/profile/profile.selector';
 
-const DisplayProfile = ({ userProfile }) => {
-  const hasProfilePhoto = !!userProfile.photo.includes('cdninstagram');
+const DisplayProfile = ({ photo, follow }) => {
+  // console.log(12, userProfile);
+  // eslint-disable-next-line
+  const source = (photo.includes('cdn') && require('../../assets/user1.jpg')) || {
+    uri: photo
+  };
   return (
     <View style={styles.Profile_Info_Container}>
       <View style={styles.Profile_Photo}>
-        {hasProfilePhoto && <AddProfilePhoto />}
+        <AddProfilePhoto source={source} />
       </View>
       <View style={styles.Profile_Info_Details}>
         <TouchableOpacity onPress={() => console.log('k')}>
@@ -28,7 +33,7 @@ const DisplayProfile = ({ userProfile }) => {
         <TouchableOpacity>
           <View>
             <TextComponent style={styles.Profile_Data}>
-              {userProfile && userProfile.followers.length}
+              {follow[0] || 0}
             </TextComponent>
             <TextComponent style={{ fontFamily: 'Proxima-Regular' }}>
               Followers
@@ -39,7 +44,7 @@ const DisplayProfile = ({ userProfile }) => {
         <TouchableOpacity>
           <View>
             <TextComponent style={styles.Profile_Data}>
-              {userProfile && userProfile.following.length}
+              {follow[1] || 0}
             </TextComponent>
             <TextComponent style={{ fontFamily: 'Proxima-Regular' }}>
               Following
@@ -53,6 +58,8 @@ const DisplayProfile = ({ userProfile }) => {
 
 const mapStateToProps = createStructuredSelector({
   userProfile: selectUserProfile,
+  photo: profileSelector.selectImageUri,
+  follow: profileSelector.selectFollowersFollowing,
 });
 export default connect(mapStateToProps)(DisplayProfile);
 
@@ -60,7 +67,6 @@ const styles = StyleSheet.create({
   Profile_Info_Container: {
     width: '100%',
     marginTop: 10,
-    marginBottom: 0,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

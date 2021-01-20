@@ -3,17 +3,22 @@ import {
   StyleSheet, Image, View, Dimensions, TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
+import ImageSelector from '../../../redux-sagas/profile/profile.selector';
 import { setModalVisible } from '../../../redux-sagas/profile/profile.action';
 import TextComponent from '../../TextComponent';
 
-const ProfileImage = ({ setModalVisible: modal }) => {
+const ProfileImage = ({ setModalVisible: modal, image }) => {
+  // eslint-disable-next-line
+  const source = (image.includes('cdn') && require('../../../assets/user1.jpg')) || {
+    uri: image
+  };
   return (
     <View style={styles.Image_Container}>
       <View style={{ alignItems: 'center' }}>
         <Image
-          // eslint-disable-next-line
-          source={require('../../../assets/user1.jpg')}
+          source={source}
           style={styles.Image}
         />
       </View>
@@ -28,14 +33,19 @@ const ProfileImage = ({ setModalVisible: modal }) => {
 };
 
 ProfileImage.propTypes = {
-  setModalVisible: PropTypes.func.isRequired
+  setModalVisible: PropTypes.func.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   setModalVisible: () => dispatch(setModalVisible())
 });
 
-export default connect(null, mapDispatchToProps)(ProfileImage);
+const mapStateToProps = createStructuredSelector({
+  image: ImageSelector.selectImageUri
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileImage);
 const screenWidth = Dimensions.get('window').width / 3;
 const styles = StyleSheet.create({
   Image: {

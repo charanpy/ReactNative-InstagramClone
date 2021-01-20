@@ -3,8 +3,9 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import TextComponent from '../TextComponent';
-import { selectUserProfile } from '../../redux-sagas/user/user.selector';
+// import { selectUserProfile } from '../../redux-sagas/user/user.selector';
 import { selectBackground } from '../../redux-sagas/theme/theme.selector';
+import ProfileSelector from '../../redux-sagas/profile/profile.selector';
 
 const ProfileInfo = ({ userProfile: Profile, background, onClick }) => {
   console.log(4, background);
@@ -48,7 +49,7 @@ const ProfileInfo = ({ userProfile: Profile, background, onClick }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  userProfile: selectUserProfile,
+  userProfile: ProfileSelector.selectUserProfile,
   background: selectBackground,
 });
 

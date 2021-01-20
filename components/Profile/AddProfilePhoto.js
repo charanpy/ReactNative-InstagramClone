@@ -3,12 +3,12 @@ import {
   StyleSheet, Image, Dimensions
 } from 'react-native';
 
-const AddProfilePhoto = () => {
+const AddProfilePhoto = ({ source }) => {
   return (
 
     <Image
       // eslint-disable-next-line
-      source={require("../../assets/user1.jpg")}
+      source={source}
       style={styles.Profile_Info}
     />
 

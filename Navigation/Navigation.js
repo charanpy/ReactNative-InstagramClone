@@ -14,13 +14,14 @@ import ActivateAccount from '../screens/AuthScreen/Register/ActivateAccount';
 import ConfirmScreen from '../screens/ConfirmScreen';
 import SplashScreen from '../screens/Splash.screen';
 import Icon from '../components/Icon';
-import HomeScreen from '../screens/MainScreen/HomeScreen';
+import HomeContainer from '../screens/MainScreen/HomeContainer';
 import AddPost from '../screens/MainScreen/AddPost';
 import LikeScreen from '../screens/MainScreen/LikeScreen';
 import ProfileScreen from '../screens/MainScreen/ProfileScreen';
 import Header from '../components/Header';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import EditProfile from '../screens/MainScreen/edit-profile/EditProfileContainer';
+import EditField from '../screens/MainScreen/edit-profile/EditField';
 
 const AuthenticationNavigator = createStackNavigator(
   {
@@ -39,7 +40,7 @@ const AuthenticationNavigator = createStackNavigator(
 
 const home = createStackNavigator(
   {
-    home: HomeScreen,
+    home: HomeContainer,
   },
   {
     defaultNavigationOptions: ({ theme, navigation }) => {
@@ -102,6 +103,12 @@ const profileScreen = createStackNavigator(
       navigationOptions: {
         headerShown: false,
       }
+    },
+    EditField: {
+      screen: EditField,
+      navigationOptions: {
+        headerShown: false,
+      }
     }
   },
   {
@@ -127,7 +134,6 @@ profileScreen.navigationOptions = ({ navigation }) => {
     tabBarVisible
   };
 };
-
 
 const App = createBottomTabNavigator(
   {

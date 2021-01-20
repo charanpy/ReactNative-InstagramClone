@@ -18,7 +18,7 @@ import {
   signOutSuccess,
   signOutFailure,
 } from './user.action';
-import { setUserProfile } from '../profile/profile.action';
+import { setUserProfile, emptyUpProfile } from '../profile/profile.action';
 import { getData, getUniqueId } from '../../helper/utils/token';
 import setAuthToken from '../../helper/utils/setAuthToken';
 import { setAlert } from '../alert/alert.action';
@@ -176,6 +176,7 @@ export function* onLoginStart() {
 export function* onSignOut() {
   try {
     yield put(signOutSuccess());
+    yield put(emptyUpProfile());
   } catch (e) {
     yield put(signOutFailure());
   }

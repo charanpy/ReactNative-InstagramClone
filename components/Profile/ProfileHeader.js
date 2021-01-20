@@ -6,10 +6,11 @@ import { Feather, FontAwesome } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-import { selectUsername } from '../../redux-sagas/user/user.selector';
+// import { selectUsername } from '../../redux-sagas/user/user.selector';
 import MainContainer from '../../screens/MainContainer';
 import TextComponent from '../TextComponent';
 import IconComponent from '../Icon';
+import ProfileSelector from '../../redux-sagas/profile/profile.selector';
 
 const ProfileHeader = ({ username }) => {
   return (
@@ -60,7 +61,7 @@ ProfileHeader.prototype = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  username: selectUsername,
+  username: ProfileSelector.selectUsername,
 });
 
 export default connect(mapStateToProps)(ProfileHeader);
@@ -83,7 +84,6 @@ const styles = StyleSheet.create({
   },
   ProfileContainer: {
     flexDirection: 'row',
-    //marginRight: '10%',
-    // justifyContent: 'space-between'
+
   },
 });

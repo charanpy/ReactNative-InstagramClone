@@ -7,7 +7,7 @@ import TextComponent from './TextComponent';
 import IconComponent from './Icon';
 
 const PostHeader = ({
-  onClick, navigation, headerTitle, route
+  onClick, navigation, headerTitle, route, onSuccessClick
 }) => {
   const handleCancelButton = () => {
     onClick();
@@ -23,7 +23,7 @@ const PostHeader = ({
             <TextComponent style={styles.Post_Text}>{headerTitle}</TextComponent>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={{ width: '50%' }}>
+        <TouchableOpacity style={{ width: '50%' }} onPress={onSuccessClick}>
           <View style={styles.Post_RightContainer}>
             <View style={{ marginRight: '8%' }}>
               <Ionicons name='md-checkmark' size={28} color='blue' />

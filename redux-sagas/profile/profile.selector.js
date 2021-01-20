@@ -17,8 +17,26 @@ const selectUserProfile = createSelector(
   (profile) => profile.userProfile
 );
 
+const selectImageUri = createSelector(
+  [selectProfile],
+  (profile) => profile.userProfile.photo
+);
+
+const selectFollowersFollowing = createSelector(
+  [selectProfile],
+  (profile) => `${profile.userProfile?.followers.length}${profile.userProfile?.following.length}`
+);
+
+const selectUsername = createSelector(
+  [selectProfile],
+  (profile) => profile.userProfile.username
+);
+
 export default {
   selectUserPhoto,
   selectIsModalVisible,
-  selectUserProfile
+  selectUserProfile,
+  selectImageUri,
+  selectFollowersFollowing,
+  selectUsername
 };

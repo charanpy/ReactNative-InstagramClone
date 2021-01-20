@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppLoading } from 'expo';
+import { enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';
 import { fetchAllFonts } from './helper/Font';
 import setAuthToken from './helper/utils/setAuthToken';
@@ -15,8 +16,9 @@ getData().then((res) => {
   console.log('app', res);
   setAuthToken(res);
 });
-
+enableScreens();
 function App() {
+
   const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {

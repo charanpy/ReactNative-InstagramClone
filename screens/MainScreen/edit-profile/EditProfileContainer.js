@@ -25,7 +25,7 @@ const EditProfileContainer = ({ navigation }) => {
         <ProfileImage />
 
       </View>
-      <EditInput />
+      <EditInput navigation={navigation} />
 
     </MainContainer>
   );
