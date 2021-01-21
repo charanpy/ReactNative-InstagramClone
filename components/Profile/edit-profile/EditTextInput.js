@@ -16,7 +16,7 @@ const EditTextInput = ({
   return (
     <Pressable
       style={{ marginBottom: '4%' }}
-      onPress={() => onFocus(fieldName, defaultInputValue)}
+      onPress={() => onFocus(fieldName, defaultInputValue || '')}
     >
       <TextComponent style={{ marginBottom: '2%', color: fieldColor }}>
         {fieldName}

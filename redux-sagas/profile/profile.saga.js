@@ -84,7 +84,8 @@ export function* onUploadImageStart() {
   yield takeLatest(profileActionTypes.UPLOAD_IMAGE_START, uploadImage);
 }
 
-const editProfileApi = (data) => {
+const editProfileApi = async (data) => {
+  console.log(12, data);
   const body = JSON.stringify(data);
   return getData().then(async (res) => {
     const response = await axios.put(
