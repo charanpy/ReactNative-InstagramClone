@@ -12,7 +12,7 @@ import profileSelector from '../../redux-sagas/profile/profile.selector';
 const DisplayProfile = ({ photo, follow }) => {
   // console.log(12, userProfile);
   // eslint-disable-next-line
-  const source = (photo.includes('cdn') && require('../../assets/user1.jpg')) || {
+  const source = ((photo && photo.includes('cdn')) && require('../../assets/user1.jpg')) || {
     uri: photo
   };
   return (

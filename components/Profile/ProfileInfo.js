@@ -11,7 +11,7 @@ const ProfileInfo = ({ userProfile: Profile, background, onClick }) => {
     <View style={styles.Info}>
       <TextComponent>{Profile?.name && Profile.name}</TextComponent>
       <TextComponent>
-        {Profile.username
+        {Profile?.username
           && (Profile.username.includes('@')
             ? Profile.username.split('@')[0]
             : Profile.username)}

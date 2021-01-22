@@ -5,7 +5,6 @@ const initialStateProfile = {
   success: false,
   profile: null,
   userProfile: null,
-  updateImageUri: null,
   modal: false
 };
 
@@ -35,7 +34,6 @@ const profileReducer = (state = initialStateProfile, action) => {
         success: false,
         profile: null,
         userProfile: null,
-        updateImageUri: null
       };
 
     case profileActionTypes.GET_PROFILE_SUCCESS:

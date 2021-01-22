@@ -1,7 +1,7 @@
 import {
   takeLatest, put, all, call
 } from 'redux-saga/effects';
-import axios from 'axios';
+import PrivateApiRoutes from '../../ApiRoutes/PrivateApi';
 import { userActionTypes } from './user.type';
 import {
   sendEmailConfirmationSuccess,
@@ -18,28 +18,8 @@ import {
   signOutFailure,
 } from './user.action';
 import { setUserProfile, emptyUpProfile } from '../profile/profile.action';
-import { getData, getUniqueId } from '../../helper/utils/token';
-import setAuthToken from '../../helper/utils/setAuthToken';
+import { getUniqueId } from '../../helper/utils/token';
 import { setAlert } from '../alert/alert.action';
-
-const apiRequest = async (bodyOfRequest, url) => {
-  console.log(bodyOfRequest, url);
-
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const body = JSON.stringify(bodyOfRequest);
-  console.log(body);
-  const response = await axios.post(
-    `https://instamernclone.herokuapp.com/api/v1/users/${url}`,
-    body,
-    config
-  );
-  return response;
-};
 
 export function* emailConfirmation(payload) {
   try {
@@ -47,15 +27,18 @@ export function* emailConfirmation(payload) {
       payload: { email },
     } = payload;
     const emailConfirmationApiResponse = yield call(
-      apiRequest,
+      PrivateApiRoutes,
+      'users/register',
       { email },
-      'register'
+      'post',
+      false,
+      false
     );
     console.log(emailConfirmationApiResponse);
     yield put(sendEmailConfirmationSuccess());
   } catch (e) {
     const id = getUniqueId();
-    console.log(id);
+    console.log(e, e.response);
     yield put(sendEmailConfirmationFailure(e.response.data.message));
     yield put(setAlert(id, e.response.data.message));
   }
@@ -73,7 +56,15 @@ export function* verifyOtp(payload) {
     const {
       payload: { Otp },
     } = payload;
-    const verifyOtpApiRes = yield call(apiRequest, { Otp }, 'confirm');
+    // const verifyOtpApiRes = yield call(apiRequest, { Otp }, 'confirm');
+    const verifyOtpApiRes = yield call(
+      PrivateApiRoutes,
+      'users/confirm',
+      { Otp },
+      'post',
+      false,
+      false
+    );
     console.log(verifyOtpApiRes);
     yield put(verifyOtpSuccess());
   } catch (error) {
@@ -95,7 +86,15 @@ export function* registerAccount(payload) {
     const {
       payload: { email, password },
     } = payload;
-    yield call(apiRequest, { email, password }, 'activate');
+    // yield call(apiRequest, { email, password }, 'activate');
+    yield call(
+      PrivateApiRoutes,
+      'users/activate',
+      { email, password },
+      'post',
+      false,
+      false
+    );
     yield put(registerSuccess());
   } catch (e) {
     const id = getUniqueId();
@@ -110,38 +109,18 @@ export function* onRegisterStart() {
   yield takeLatest(userActionTypes.REGISTER_START, registerAccount);
 }
 
-const dat = async () => {
-  getData().then((res) => {
-    setAuthToken(res);
-  });
-};
-
-const loadUserApi = async (url, id = null) => {
-  dat();
-
-  return getData().then(async (res) => {
-    const apiUrl = id
-      ? `https://instamernclone.herokuapp.com/api/v1/${url}/${id}`
-      : `https://instamernclone.herokuapp.com/api/v1/${url}`;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${res}`,
-      },
-    };
-    const response = await axios.get(apiUrl, config);
-    return response;
-  });
-};
-
 export function* loadUser() {
   try {
-    const getProfileId = yield call(loadUserApi, 'users/me');
-    console.log(getProfileId.data.profile);
-    // const { _id: profileId } = getProfileId.data.profile;
-    // const getProfile = yield call(loadUserApi, `profile/${profileId}`);
-    // console.log(getProfile);
-    yield put(loadUserSuccess(getProfileId.data.profile));
-    yield put(setUserProfile(getProfileId.data.profile));
+    const response = yield call(
+      PrivateApiRoutes,
+      'users/me',
+      null,
+      'get',
+      true,
+      false
+    );
+    yield put(loadUserSuccess(response.data.profile));
+    yield put(setUserProfile(response.data.profile));
   } catch (e) {
     console.log(e, e.response);
     yield put(authError());
@@ -158,9 +137,15 @@ export function* onLogin(payload) {
     const {
       payload: { email, password },
     } = payload;
-    const res = yield call(apiRequest, { email, password }, 'login');
-    console.log(res);
-    yield put(loginSuccess(res.data.data.token));
+    const response = yield call(
+      PrivateApiRoutes,
+      'users/login',
+      { email, password },
+      'post',
+      false,
+      false
+    );
+    yield put(loginSuccess(response.data.data.token));
   } catch (e) {
     const id = getUniqueId();
     console.log(e, id);
@@ -196,3 +181,28 @@ export function* userSagas() {
     call(onSignOutStart),
   ]);
 }
+
+// const emailConfirmationApiResponse = yield call(
+//       apiRequest,
+//       { email },
+//       'register'
+//     );
+
+// const apiRequest = async (bodyOfRequest, url) => {
+//   console.log(bodyOfRequest, url);
+
+//   const config = {
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   };
+
+//   const body = JSON.stringify(bodyOfRequest);
+//   console.log(body);
+//   const response = await axios.post(
+//     `https://instamernclone.herokuapp.com/api/v1/users/${url}`,
+//     body,
+//     config
+//   );
+//   return response;
+// };

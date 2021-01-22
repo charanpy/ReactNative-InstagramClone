@@ -5,8 +5,6 @@ const initialState = {
   user: null,
   isAuthenticated: false,
   success: false,
-  error: null,
-  message: null,
   loading: false,
   isVerified: false,
   email: null,
@@ -21,7 +19,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         success: true,
         loading: false,
-        error: null,
         status: 'GetOtp',
       };
 
@@ -30,7 +27,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         success: true,
         loading: false,
-        error: null,
         status: 'GetPassword',
       };
 
@@ -40,8 +36,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         success: false,
-        error: null,
-        message: null,
       };
     case userActionTypes.LOGIN_START:
     case userActionTypes.LOAD_USER_START:
@@ -49,8 +43,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         success: false,
-        error: null,
-        message: null,
         status: null,
       };
 
@@ -59,8 +51,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         success: false,
-        error: null,
-        message: null,
         email: action.payload.email,
       };
 
@@ -69,7 +59,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         success: false,
-        message: null,
         email: null,
         isAuthenticated: false,
       };
@@ -79,8 +68,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         success: false,
-        message: null,
-
         isAuthenticated: false,
       };
 
@@ -94,7 +81,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         success: false,
-        message: null,
         email: null,
         isAuthenticated: false,
         user: null,
@@ -104,7 +90,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         success: true,
         loading: false,
-        error: null,
         isAuthenticated: true,
         email: null,
         user: action.payload,
@@ -115,8 +100,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         success: true,
         loading: false,
-        error: null,
-
         email: null,
         status: 'Registered',
       };
@@ -128,7 +111,6 @@ const userReducer = (state = initialState, action) => {
         ...state,
         success: true,
         loading: false,
-        error: null,
         isAuthenticated: true,
         email: null,
       };
@@ -145,8 +127,6 @@ const userReducer = (state = initialState, action) => {
         status: null,
         email: null,
         success: false,
-        message: null,
-        error: null,
       };
     default:
       return state;

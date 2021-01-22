@@ -21,16 +21,27 @@ const getHeaders = (token, image, userToken) => {
   return headers;
 };
 
-const ApiRequest = async (route, body, methodType, isTokenRequired, isImage) => {
+const ApiRequest = async (
+  route,
+  body,
+  methodType,
+  isTokenRequired,
+  isImage
+) => {
   const url = `${ApiRequestMethod.url}${route}`;
-  const request = ApiRequestMethod.methodType;
-  const userToken = getData();
-  const bodyOfRequest = JSON.stringify(body);
+  const request = ApiRequestMethod[methodType];
+  const userToken = await getData();
+  const bodyOfRequest = isImage ? body : JSON.stringify(body);
   const headers = getHeaders(isTokenRequired, isImage, userToken);
   const config = {
-    headers
+    headers,
   };
-  const response = await request(url, bodyOfRequest, config);
+  console.log(route, body, methodType);
+  console.log(url, request, userToken, bodyOfRequest, config);
+  const response = methodType !== 'get'
+    ? await request(url, bodyOfRequest, config)
+    : await request(url, config);
+
   return response;
 };
 
