@@ -7,6 +7,7 @@ import ProfileImage from '../../../components/Profile/edit-profile/ProfileImage'
 import UpdatePhotoModal from '../../../components/Profile/edit-profile/UpadePhotoModal';
 import MainContainer from '../../MainContainer';
 import EditInput from '../../../components/Profile/edit-profile/EditInput';
+import ProfileLoaderHOC from '../../Loader/ProfileLoader';
 
 const EditProfileContainer = ({ navigation }) => {
 
@@ -35,6 +36,6 @@ EditProfileContainer.navigationOptions = {
   tabBarVisible: false
 };
 
-export default EditProfileContainer;
+export default ProfileLoaderHOC(EditProfileContainer);
 
 // const styles = StyleSheet.create({})

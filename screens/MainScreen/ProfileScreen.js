@@ -2,6 +2,7 @@ import React from 'react';
 import DisplayProfile from '../../components/Profile/DisplayProfile';
 import ProfileInfo from '../../components/Profile/ProfileInfo';
 import MainContainer from '../MainContainer';
+import ProfileLoaderHOC from '../Loader/ProfileLoader';
 
 const ProfileScreen = ({ navigation }) => {
   return (
@@ -12,4 +13,4 @@ const ProfileScreen = ({ navigation }) => {
   );
 };
 
-export default ProfileScreen;
+export default ProfileLoaderHOC(ProfileScreen);

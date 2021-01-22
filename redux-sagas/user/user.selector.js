@@ -51,3 +51,8 @@ export const selectUsername = createSelector(
   [selectUser],
   (userInfo) => userInfo.user?.username
 );
+
+export const selectIsUserLoaded = createSelector(
+  [selectUser],
+  (user) => user.userLoaded
+);

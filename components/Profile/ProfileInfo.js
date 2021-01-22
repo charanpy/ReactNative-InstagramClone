@@ -3,19 +3,16 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import TextComponent from '../TextComponent';
-// import { selectUserProfile } from '../../redux-sagas/user/user.selector';
 import { selectBackground } from '../../redux-sagas/theme/theme.selector';
 import ProfileSelector from '../../redux-sagas/profile/profile.selector';
 
 const ProfileInfo = ({ userProfile: Profile, background, onClick }) => {
-  console.log(4, background);
   return (
     <View style={styles.Info}>
       <TextComponent>{Profile?.name && Profile.name}</TextComponent>
       <TextComponent>
-        {/* eslint-disable-next-line */}
-        {Profile.username &&
-          (Profile.username.includes('@')
+        {Profile.username
+          && (Profile.username.includes('@')
             ? Profile.username.split('@')[0]
             : Profile.username)}
       </TextComponent>
@@ -26,6 +23,7 @@ const ProfileInfo = ({ userProfile: Profile, background, onClick }) => {
         style={{
           padding: 8,
           display: 'flex',
+          marginTop: '5%',
           justifyContent: 'center',
           marginRight: '5%',
           borderRadius: 6,

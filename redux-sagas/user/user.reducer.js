@@ -7,8 +7,7 @@ const initialState = {
   success: false,
   error: null,
   message: null,
-
-  loading: null,
+  loading: false,
   isVerified: false,
   email: null,
   status: null,
@@ -45,6 +44,7 @@ const userReducer = (state = initialState, action) => {
         message: null,
       };
     case userActionTypes.LOGIN_START:
+    case userActionTypes.LOAD_USER_START:
       return {
         ...state,
         loading: true,

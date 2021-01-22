@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { selectIsLoading } from '../../redux-sagas/user/user.selector';
-import LoaderHOC from '../LoaderHOC';
+import LoaderHOC from '../Loader/LoaderHOC';
 import HomeScreen from './HomeScreen';
 
 const mapStateToProps = createStructuredSelector({

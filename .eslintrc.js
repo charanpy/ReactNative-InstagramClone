@@ -29,7 +29,8 @@ module.exports = {
     'react-native/no-raw-text': 0,
     'react-native/no-single-element-style-arrays': 2,
     'jsx-quotes': ['error', 'prefer-single'],
-    'react/jsx-props-no-spreading': 'off'
+    'react/jsx-props-no-spreading': 'off',
+    'global-require': 'off',
   },
   globals: {
     fetch: false

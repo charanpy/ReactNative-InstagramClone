@@ -41,14 +41,14 @@ export const uploadImageFailure = () => ({
   type: profileActionTypes.UPLOAD_IMAGE_FAILURE
 });
 
-export const editProfileStart = (value, label) => ({
+export const editProfileStart = (data) => ({
   type: profileActionTypes.EDIT_PROFILE_START,
-  payload: { label, value }
+  payload: data
 });
 
-export const editProfileSuccess = (value) => ({
+export const editProfileSuccess = (label, value) => ({
   type: profileActionTypes.EDIT_PROFILE_SUCCESS,
-  payload: value
+  payload: { label, value }
 });
 
 export const editProfileFailure = () => ({

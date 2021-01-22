@@ -2,7 +2,6 @@ import {
   takeLatest, put, all, call
 } from 'redux-saga/effects';
 import axios from 'axios';
-
 import { userActionTypes } from './user.type';
 import {
   sendEmailConfirmationSuccess,
@@ -137,12 +136,12 @@ const loadUserApi = async (url, id = null) => {
 export function* loadUser() {
   try {
     const getProfileId = yield call(loadUserApi, 'users/me');
-    console.log(getProfileId);
-    const { _id: profileId } = getProfileId.data.profile;
-    const getProfile = yield call(loadUserApi, `profile/${profileId}`);
-    console.log(getProfile);
-    yield put(loadUserSuccess(getProfile.data.data.profile));
-    yield put(setUserProfile(getProfile.data.data.profile));
+    console.log(getProfileId.data.profile);
+    // const { _id: profileId } = getProfileId.data.profile;
+    // const getProfile = yield call(loadUserApi, `profile/${profileId}`);
+    // console.log(getProfile);
+    yield put(loadUserSuccess(getProfileId.data.profile));
+    yield put(setUserProfile(getProfileId.data.profile));
   } catch (e) {
     console.log(e, e.response);
     yield put(authError());
@@ -160,6 +159,7 @@ export function* onLogin(payload) {
       payload: { email, password },
     } = payload;
     const res = yield call(apiRequest, { email, password }, 'login');
+    console.log(res);
     yield put(loginSuccess(res.data.data.token));
   } catch (e) {
     const id = getUniqueId();

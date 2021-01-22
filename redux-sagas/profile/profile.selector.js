@@ -7,6 +7,11 @@ const selectUserPhoto = createSelector(
   (profile) => profile.userProfile?.photo
 );
 
+const selectIsLoading = createSelector(
+  [selectProfile],
+  (profile) => profile.loading
+);
+
 const selectIsModalVisible = createSelector(
   [selectProfile],
   (profile) => profile.modal
@@ -19,7 +24,7 @@ const selectUserProfile = createSelector(
 
 const selectImageUri = createSelector(
   [selectProfile],
-  (profile) => profile.userProfile.photo
+  (profile) => profile.userProfile?.photo
 );
 
 const selectFollowersFollowing = createSelector(
@@ -29,7 +34,7 @@ const selectFollowersFollowing = createSelector(
 
 const selectUsername = createSelector(
   [selectProfile],
-  (profile) => profile.userProfile.username
+  (profile) => profile.userProfile?.username
 );
 
 export default {
@@ -38,5 +43,6 @@ export default {
   selectUserProfile,
   selectImageUri,
   selectFollowersFollowing,
-  selectUsername
+  selectUsername,
+  selectIsLoading
 };

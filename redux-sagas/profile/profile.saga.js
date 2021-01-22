@@ -93,7 +93,7 @@ const editProfileApi = async (data) => {
       body,
       {
         headers: {
-          Accept: 'application/json',
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${res}`,
         },
       }
@@ -105,13 +105,14 @@ const editProfileApi = async (data) => {
 export function* editProfile({ payload }) {
   try {
     const { label, value } = payload;
+    console.log(label, 100, payload);
     const labelText = label.toLowerCase();
     const body = {
       [labelText]: value
     };
     const res = yield call(editProfileApi, body);
     console.log(res);
-    yield put(editProfileSuccess(label.toLowerCase(), value));
+    yield put(editProfileSuccess(labelText, value));
   } catch (error) {
     console.log(error, error.response);
     yield put(editProfileFailure());
