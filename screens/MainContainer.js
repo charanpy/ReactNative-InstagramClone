@@ -5,7 +5,9 @@ import { createStructuredSelector } from 'reselect';
 import { selectAlertMessage } from '../redux-sagas/alert/alert.selector';
 import { selectBackground } from '../redux-sagas/theme/theme.selector';
 
-const MainContainer = ({ children, background, alert, style, modal }) => {
+const MainContainer = ({
+  children, background, alert, style, modal
+}) => {
   const [backgroundColor, setBackgroundColor] = useState(background);
   useEffect(() => {
     if (backgroundColor === background) return;

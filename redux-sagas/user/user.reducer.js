@@ -12,7 +12,6 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  // data()
   switch (action.type) {
     case userActionTypes.SEND_EMAIL_CONFIRMATION_CODE_SUCCESS:
       return {

@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
-  StyleSheet,
-  Animated,
-  View,
-  KeyboardAvoidingView
+  Animated, View, KeyboardAvoidingView
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import styles from './styles/Register.style';
 import MainContainer from '../../MainContainer';
 import TextComponent from '../../../components/TextComponent';
 import TextInputComponent from '../../../components/TextInput';
@@ -20,69 +18,19 @@ import {
   selectApiCallSuccess,
   selectStatus,
 } from '../../../redux-sagas/user/user.selector';
+import useRegisterState from './helper/RegisterState';
 
 const Register = ({
   status,
   color,
   navigation,
-  sendEmailConfirmationStart: sendEmail
+  sendEmailConfirmationStart: sendEmail,
 }) => {
-  const [email, setEmail] = useState('');
-  const [disabled, setDisabled] = useState(true);
-  const [emailValidation, setEmailValidation] = useState({
-    error: null,
-  });
-  const { error } = emailValidation;
-  const [value] = useState(new Animated.Value(0));
-  useEffect(() => {
-    if (email.length > 0) {
-      setDisabled(false);
-    } else if (email.length <= 0) {
-      setDisabled(true);
-    }
-  }, [email, disabled]);
-
-  useEffect(() => {
-    if (status === 'GetOtp') {
-      navigation.navigate({
-        routeName: 'Otp',
-      });
-    }
-    setEmail('');
-  }, [status, navigation]);
-
-  const slideErrorMsg = () => {
-    Animated.timing(value, {
-      toValue: 1,
-      duration: 2000,
-      useNativeDriver: false,
-    }).start();
-  };
-
-  const onSubmitHandler = async () => {
-    const mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    if (
-      !typeof email === 'string'
-      || email.length <= 0
-      || !email.match(mailFormat)
-    ) {
-      slideErrorMsg();
-
-      console.log('err');
-      setEmailValidation({
-        error: 'Please enter a valid Gmail',
-      });
-      return;
-    }
-    if (!error) {
-      sendEmail(email);
-    }
-    setEmailValidation({
-      isValidated: false,
-      error: null,
-    });
-  };
-
+  const [email, setEmail, onSubmitHandler, error, value] = useRegisterState(
+    sendEmail,
+    status,
+    navigation
+  );
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -103,7 +51,7 @@ const Register = ({
         </View>
 
         <ButtonComponent
-          disableButton={disabled}
+          disableButton={!email.length > 0}
           onPressButton={onSubmitHandler}
           title='Register'
         />
@@ -141,15 +89,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
-
-const styles = StyleSheet.create({
-  Register_Container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  Alert: {
-    fontSize: 15,
-    marginTop: 20,
-    fontFamily: 'Nue-Regular',
-  },
-});

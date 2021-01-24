@@ -12,13 +12,14 @@ const getAlbumList = async () => {
   return getAlbum;
 };
 
+// photo details
 const getPhotosFromAlbum = async (albumName) => {
   const getPhotos = await MediaLibrary.getAlbumAsync(albumName);
   return getPhotos;
 };
 
+// photo uri
 const photo = async (getAlbums) => {
-
   const getAllPhotos = await MediaLibrary.getAssetsAsync({
     first: 20,
     album: getAlbums,
@@ -54,8 +55,24 @@ export const lauchCamera = async () => {
   };
 };
 
+const getCameraRollPermission = async () => {
+  const { granted } = await Permissions.getAsync(
+    Permissions.CAMERA_ROLL
+  );
+  return granted;
+};
+
+const askCameraRollPermission = async () => {
+  const { granted } = await Permissions.askAsync(
+    Permissions.CAMERA_ROLL
+  );
+  return granted;
+};
+
 export default {
   getAlbumList,
   getPhotosFromAlbum,
   photo,
+  getCameraRollPermission,
+  askCameraRollPermission,
 };

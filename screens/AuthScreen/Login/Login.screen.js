@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
-  StyleSheet,
   View,
   TouchableNativeFeedback,
   KeyboardAvoidingView,
@@ -18,6 +17,8 @@ import {
   setStatusNull,
   loginStart,
 } from '../../../redux-sagas/user/user.action';
+import UseLoginState from './LoginState';
+import styles from './Login.styles';
 
 const Login = ({
   isAuthenticated,
@@ -25,39 +26,13 @@ const Login = ({
   navigation,
   loginStart: startLogin,
 }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [ButtonDisable, setButtonDisable] = useState(true);
-
-  useEffect(() => {
-    statusToNull();
-  }, [statusToNull]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigation.navigate('App');
-    }
-  }, [isAuthenticated, navigation]);
-
-  useEffect(() => {
-    if (email.length > 0 && password.length > 0) {
-      setButtonDisable(false);
-    } else if (!password || !email) {
-      setButtonDisable(true);
-    }
-  }, [email, password, ButtonDisable]);
-
-  console.log(1, ButtonDisable, email, password);
-
-  const onSubmitHandler = () => {
-    if (email.length <= 0 || password.length <= 0) {
-      return;
-    }
-    startLogin(email, password);
-    setEmail('');
-    setPassword('');
-  };
-
+  const [
+    email,
+    setEmail,
+    password,
+    setPassword,
+    onSubmitHandler,
+  ] = UseLoginState(statusToNull, startLogin, isAuthenticated, navigation);
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -92,17 +67,12 @@ const Login = ({
             />
 
             <ButtonComponent
-              disableButton={ButtonDisable}
+              disableButton={!email || !password}
               onPressButton={onSubmitHandler}
               title='login'
             />
-
             <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                marginTop: 15,
-              }}
+              style={styles.Forgot_Container}
             >
               <TouchableNativeFeedback>
                 <View>
@@ -135,7 +105,7 @@ Login.propTypes = {
   }).isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   setStatusNull: PropTypes.func.isRequired,
-  loginStart: PropTypes.func.isRequired
+  loginStart: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -148,33 +118,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-
-const styles = StyleSheet.create({
-  Forgot: {
-    fontFamily: 'Roboto-Light',
-    fontSize: 13,
-  },
-  Forget_Bold: {
-    fontFamily: 'Roboto-Regular',
-    fontSize: 13,
-  },
-  Login_Container: {
-    justifyContent: 'space-between',
-  },
-
-  Lang_Select: {
-    marginTop: '15%',
-    textAlign: 'center',
-    alignItems: 'center',
-  },
-  Lang_Text: {
-    fontFamily: 'Proxima-Light',
-  },
-  Brand_Name: {
-    fontFamily: 'Billabong',
-    fontSize: 45,
-  },
-  BrandName_Container: {
-    alignItems: 'center',
-  },
-});

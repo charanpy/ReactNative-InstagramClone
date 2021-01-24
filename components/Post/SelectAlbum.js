@@ -13,10 +13,10 @@ import MainContainer from '../../screens/MainContainer';
 
 const SelectAlbum = () => {
   const { state, dispatch } = useContext(PostContext);
-  useEffect(() => {
-    console.log('selectAlbum render');
-    console.log(" ");
-  }, [])
+  // useEffect(() => {
+  //   console.log('selectAlbum render');
+  //   console.log(" ");
+  // }, [])
 
   useEffect(() => {
     async function getListAlbum() {

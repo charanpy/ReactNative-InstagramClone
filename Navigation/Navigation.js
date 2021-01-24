@@ -15,7 +15,7 @@ import ConfirmScreen from '../screens/ConfirmScreen';
 import SplashScreen from '../screens/Splash.screen';
 import Icon from '../components/Icon';
 import HomeContainer from '../screens/MainScreen/HomeScreen';
-import AddPost from '../screens/MainScreen/AddPost';
+import AddPost from '../screens/MainScreen/Post/AddPost';
 import LikeScreen from '../screens/MainScreen/LikeScreen';
 import ProfileScreen from '../screens/MainScreen/ProfileScreen';
 import Header from '../components/Header';

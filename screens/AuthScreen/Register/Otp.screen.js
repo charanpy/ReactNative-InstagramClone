@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, BackHandler } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
@@ -15,57 +15,14 @@ import {
   selectStatus,
   selectEmail,
 } from '../../../redux-sagas/user/user.selector';
+import UseOtpState from './helper/OtpState';
+import styles from './styles/Register.style';
 
 const Otp = ({
   status, navigation, verifyOtpStart: verifyOtp,
   email
 }) => {
-  const [OtpVerify, setOtp] = useState('');
-  const [disabled, setDisabled] = useState(true);
-
-  useEffect(() => {
-    if (status === 'GetPassword') {
-      navigation.navigate('ActivateAccount');
-    } else if (status === null) {
-      navigation.navigate('Login');
-    }
-  }, [status, navigation]);
-
-  useEffect(() => {
-    const handleBackButton = () => {
-      navigation.navigate({
-        routeName: 'ConfirmScreen',
-        params: {
-          navigation: 'Otp',
-        },
-      });
-
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      handleBackButton
-    );
-    return () => backHandler.remove();
-  }, [navigation]);
-
-  useEffect(() => {
-    if (OtpVerify.length >= 5) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [OtpVerify, disabled]);
-
-  const onSubmitHandler = () => {
-    if (OtpVerify.length !== 6) {
-      console.log(true);
-    }
-    verifyOtp(OtpVerify);
-    setOtp('');
-  };
-
+  const [OtpVerify, setOtp, onSubmitHandler] = UseOtpState(status, navigation, verifyOtp);
   return (
     <MainContainer>
       <View style={styles.Otp_Confirmation}>
@@ -92,7 +49,7 @@ const Otp = ({
           />
         </View>
         <ButtonComponent
-          disableButton={disabled}
+          disableButton={OtpVerify.length < 5}
           onPressButton={onSubmitHandler}
           title='Submit'
         />
@@ -123,20 +80,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Otp);
-
-const styles = StyleSheet.create({
-  Otp_Confirmation: {
-    marginVertical: '20%',
-    alignItems: 'center',
-  },
-  Header: {
-    fontFamily: 'Roboto-Regular',
-    fontSize: 18,
-    marginBottom: 20,
-  },
-  Sub_Text: {
-    fontSize: 15,
-    marginBottom: 7,
-    fontFamily: 'Roboto-Light',
-  },
-});

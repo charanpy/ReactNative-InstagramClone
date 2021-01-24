@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
-  StyleSheet,
   View,
-  BackHandler,
   TouchableNativeFeedback,
-
 } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -18,6 +15,8 @@ import {
   selectEmail,
   selectStatus,
 } from '../../../redux-sagas/user/user.selector';
+import UseActivateAccountState from './helper/ActivateAccountState';
+import styles from './styles/Register.style';
 
 const AccountActivate = ({
   status,
@@ -25,57 +24,18 @@ const AccountActivate = ({
   email,
   navigation,
 }) => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [disabled, setDisabled] = useState(true);
-  const [errorMsg, setErrorMsg] = useState('');
-
-  useEffect(() => {
-    const handleBackButton = () => {
-      if (status === 'Registered') {
-        navigation.navigate('Login');
-      } else {
-        navigation.navigate({
-          routeName: 'ConfirmScreen',
-          params: {
-            navigation: 'ActivateAccount',
-          },
-        });
-      }
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      handleBackButton
-    );
-    return () => backHandler.remove();
-  }, [navigation, status]);
-
-  useEffect(() => {
-    if (password && password === confirmPassword) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-
-    if (password.length >= 8 && confirmPassword.length >= 8) {
-      setErrorMsg('');
-    }
-  }, [disabled, password, confirmPassword]);
-
-  const onSubmitHandler = () => {
-    if (password.length < 8 || password !== confirmPassword) {
-      setErrorMsg('Password should be minimum of 8 characters');
-      return;
-    }
-    startRegister(email, password);
-  };
-
+  const [
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    errorMsg,
+    onSubmitHandler,
+  ] = UseActivateAccountState(status, navigation, startRegister, email);
   return (
     <MainContainer style={{ flex: 1 }}>
       <View style={styles.Activation_Container}>
-        <TextComponent style={styles.Header}>PASSWORD</TextComponent>
+        <TextComponent style={styles.HeaderAcc}>PASSWORD</TextComponent>
         <TextInputComponent
           placeholder='Password'
           handleChange={(text) => setPassword(text)}
@@ -91,11 +51,7 @@ const AccountActivate = ({
 
         {status === 'Registered' && (
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginTop: 15,
-            }}
+            style={styles.RegisterSuccess}
           >
             <TouchableNativeFeedback
               onPress={() => navigation.navigate('Login')}
@@ -114,11 +70,11 @@ const AccountActivate = ({
 
         <ButtonComponent
           title='Submit'
-          disableButton={disabled}
+          disableButton={password !== confirmPassword}
           onPressButton={onSubmitHandler}
         />
         <View>
-          <TextComponent color='red' style={styles.Alert}>
+          <TextComponent color='red' style={styles.AlertAcc}>
             {errorMsg}
           </TextComponent>
         </View>
@@ -146,28 +102,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountActivate);
-
-const styles = StyleSheet.create({
-  Activation_Container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  Header: {
-    fontSize: 21,
-    fontFamily: 'Proxima-Regular',
-  },
-  Forgot: {
-    fontFamily: 'Roboto-Light',
-    fontSize: 13,
-  },
-  Forget_Bold: {
-    fontFamily: 'Roboto-Regular',
-    fontSize: 13,
-  },
-  Alert: {
-    fontSize: 15,
-    marginVertical: 15,
-    fontFamily: 'Nue-Regular',
-  },
-});
