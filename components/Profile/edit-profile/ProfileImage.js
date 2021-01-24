@@ -7,7 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import ImageSelector from '../../../redux-sagas/profile/profile.selector';
 import { setModalVisible } from '../../../redux-sagas/profile/profile.action';
-import TextComponent from '../../TextComponent';
+import TextComponent from '../../shared/Text/TextComponent';
 
 const ProfileImage = ({ setModalVisible: modal, image }) => {
   // eslint-disable-next-line

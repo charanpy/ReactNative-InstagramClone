@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput, Pressable } from 'react-native';
-import TextComponent from '../../TextComponent';
+import TextComponent from '../../shared/Text/TextComponent';
 
 const EditTextInput = ({
   defaultInputValue,

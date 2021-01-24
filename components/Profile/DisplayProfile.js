@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUserProfile } from '../../redux-sagas/user/user.selector';
-import TextComponent from '../TextComponent';
+import TextComponent from '../shared/Text/TextComponent';
 import AddProfilePhoto from './AddProfilePhoto';
 import profileSelector from '../../redux-sagas/profile/profile.selector';
 

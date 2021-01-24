@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BackHandler, View } from 'react-native';
-import GoBack from '../components/GoBack';
+import GoBack from '../components/shared/GoBack/GoBack';
 
 const ConfirmScreen = ({
   navigation

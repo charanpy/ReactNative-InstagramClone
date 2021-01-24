@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 import selectProfile from '../../../redux-sagas/profile/profile.selector';
 import MainContainer from '../../../screens/MainContainer';
-import TextComponent from '../../TextComponent';
+import TextComponent from '../../shared/Text/TextComponent';
 import { setModalVisible, uploadImageStart } from '../../../redux-sagas/profile/profile.action';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 import launchMedia from './helper/ImageLibrary';

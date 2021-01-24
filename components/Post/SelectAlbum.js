@@ -7,8 +7,8 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import Modal from 'react-native-modal';
 import Media, { PostContext } from './helper/Image';
-import TextComponent from '../TextComponent';
-import IconComponent from '../Icon';
+import TextComponent from '../shared/Text/TextComponent';
+import IconComponent from '../shared/Icon/Icon';
 import MainContainer from '../../screens/MainContainer';
 
 const SelectAlbum = () => {

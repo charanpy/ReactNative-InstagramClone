@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import MainContainer from '../MainContainer';
-import TextComponent from '../../components/TextComponent';
+import TextComponent from '../../components/shared/Text/TextComponent';
 
 import { signOutStart } from '../../redux-sagas/user/user.action';
 import { selectIsAuthenticated } from '../../redux-sagas/user/user.selector';

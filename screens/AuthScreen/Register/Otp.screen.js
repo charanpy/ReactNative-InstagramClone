@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import MainContainer from '../../MainContainer';
-import TextComponent from '../../../components/TextComponent';
-import TextInputComponent from '../../../components/TextInput';
-import ButtonComponent from '../../../components/ButtonComponent';
+import TextComponent from '../../../components/shared/Text/TextComponent';
+import TextInputComponent from '../../../components/shared/TextInput/TextInput';
+import ButtonComponent from '../../../components/shared/Button/ButtonComponent';
 import {
   setSuccessFalse,
   verifyOtpStart,

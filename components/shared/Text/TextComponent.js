@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 // import PropTypes from "prop-types"
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import { selectColor } from '../redux-sagas/theme/theme.selector';
+import { selectColor } from '../../../redux-sagas/theme/theme.selector';
 
 const TextComponent = (props) => {
   const {

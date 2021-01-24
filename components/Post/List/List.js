@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
-import TextComponent from '../../TextComponent';
+import TextComponent from '../../shared/Text/TextComponent';
 import UseListState from './ListState';
 import styles from './List.styles';
 

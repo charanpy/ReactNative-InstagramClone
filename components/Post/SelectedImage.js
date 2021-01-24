@@ -3,8 +3,8 @@ import {
   StyleSheet, View, TouchableOpacity, Image
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import TextComponent from '../TextComponent';
-import IconComponent from '../Icon';
+import TextComponent from '../shared/Text/TextComponent';
+import IconComponent from '../shared/Icon/Icon';
 import Media, { PostContext, lauchCamera } from './helper/Image';
 
 const SelectedImage = () => {

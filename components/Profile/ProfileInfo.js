@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import TextComponent from '../TextComponent';
+import TextComponent from '../shared/Text/TextComponent';
 import { selectBackground } from '../../redux-sagas/theme/theme.selector';
 import ProfileSelector from '../../redux-sagas/profile/profile.selector';
 

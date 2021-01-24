@@ -4,10 +4,10 @@ import {
 } from 'react-native';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import { selectAlertMessage } from '../redux-sagas/alert/alert.selector';
-import { removeAlert } from '../redux-sagas/alert/alert.action';
-import { selectBackground } from '../redux-sagas/theme/theme.selector';
-import TextComponent from './TextComponent';
+import { selectAlertMessage } from '../../../redux-sagas/alert/alert.selector';
+import { removeAlert } from '../../../redux-sagas/alert/alert.action';
+import { selectBackground } from '../../../redux-sagas/theme/theme.selector';
+import TextComponent from '../Text/TextComponent';
 // import MainContainer from '../screens/MainContainer'
 
 const AlertComponent = ({ alert, removeAlert: alertRemove, background }) => {

@@ -1,17 +1,15 @@
 import React from 'react';
-import {
-  Animated, View, KeyboardAvoidingView
-} from 'react-native';
+import { Animated, View, KeyboardAvoidingView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import styles from './styles/Register.style';
 import MainContainer from '../../MainContainer';
-import TextComponent from '../../../components/TextComponent';
-import TextInputComponent from '../../../components/TextInput';
-import FooterAuth from '../../../components/FooterAuth';
-import ButtonComponent from '../../../components/ButtonComponent';
+import TextComponent from '../../../components/shared/Text/TextComponent';
+import TextInputComponent from '../../../components/shared/TextInput/TextInput';
+import FooterAuth from '../../../components/shared/FooterAuthentication/FooterAuth';
+import ButtonComponent from '../../../components/shared/Button/ButtonComponent';
 import { sendEmailConfirmationStart } from '../../../redux-sagas/user/user.action';
 import { selectColor } from '../../../redux-sagas/theme/theme.selector';
 import {

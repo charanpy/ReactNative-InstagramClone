@@ -1,24 +1,21 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
-  View,
-  TouchableNativeFeedback,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView, TouchableNativeFeedback, View
 } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import PropTypes from 'prop-types';
-import MainContainer from '../../MainContainer';
-import TextComponent from '../../../components/TextComponent';
-import TextInputComponent from '../../../components/TextInput';
-import FooterAuth from '../../../components/FooterAuth';
-import ButtonComponent from '../../../components/ButtonComponent';
-import { selectIsAuthenticated } from '../../../redux-sagas/user/user.selector';
+import ButtonComponent from '../../../components/shared/Button/ButtonComponent';
+import FooterAuth from '../../../components/shared/FooterAuthentication/FooterAuth';
+import TextComponent from '../../../components/shared/Text/TextComponent';
+import TextInputComponent from '../../../components/shared/TextInput/TextInput';
 import {
-  setStatusNull,
-  loginStart,
+  loginStart, setStatusNull
 } from '../../../redux-sagas/user/user.action';
-import UseLoginState from './LoginState';
+import { selectIsAuthenticated } from '../../../redux-sagas/user/user.selector';
+import MainContainer from '../../MainContainer';
 import styles from './Login.styles';
+import UseLoginState from './LoginState';
 
 const Login = ({
   isAuthenticated,

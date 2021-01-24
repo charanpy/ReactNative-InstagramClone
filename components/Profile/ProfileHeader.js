@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 // import { selectUsername } from '../../redux-sagas/user/user.selector';
 import MainContainer from '../../screens/MainContainer';
-import TextComponent from '../TextComponent';
-import IconComponent from '../Icon';
+import TextComponent from '../shared/Text/TextComponent';
+import IconComponent from '../shared/Icon/Icon';
 import ProfileSelector from '../../redux-sagas/profile/profile.selector';
 
 const ProfileHeader = ({ username }) => {

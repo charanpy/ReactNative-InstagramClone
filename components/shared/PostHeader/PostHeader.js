@@ -3,11 +3,15 @@ import {
   StyleSheet, View, SafeAreaView, TouchableOpacity
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import TextComponent from './TextComponent';
-import IconComponent from './Icon';
+import TextComponent from '../Text/TextComponent';
+import IconComponent from '../Icon/Icon';
 
 const PostHeader = ({
-  onClick, navigation, headerTitle, route, onSuccessClick
+  onClick,
+  navigation,
+  headerTitle,
+  route,
+  onSuccessClick,
 }) => {
   const handleCancelButton = () => {
     onClick();
@@ -20,7 +24,9 @@ const PostHeader = ({
         <TouchableOpacity onPress={handleCancelButton} style={{ width: '50%' }}>
           <View style={styles.Post_LeftContainer}>
             <IconComponent Component={Ionicons} name='md-close' size={25} />
-            <TextComponent style={styles.Post_Text}>{headerTitle}</TextComponent>
+            <TextComponent style={styles.Post_Text}>
+              {headerTitle}
+            </TextComponent>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={{ width: '50%' }} onPress={onSuccessClick}>
