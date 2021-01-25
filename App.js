@@ -6,7 +6,7 @@ import fetchAllFonts from './helper/Font';
 import setAuthToken from './helper/utils/setAuthToken';
 
 import store from './redux-sagas/store';
-import AlertComponent from './components/AlertComponent';
+import AlertComponent from './components/shared/Alert/AlertComponent';
 import { loadUserStart } from './redux-sagas/user/user.action';
 // import * as SecureStore from 'expo-secure-store'
 import { getData } from './helper/utils/token';

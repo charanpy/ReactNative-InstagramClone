@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { PostContext } from '../../../components/Post/helper/Image';
 import MainContainer from '../../MainContainer';
-import PostHeader from '../../../components/PostHeader';
+import PostHeader from '../../../components/shared/PostHeader/PostHeader';
 import SelectAlbum from '../../../components/Post/SelectAlbum';
 import SelectedImage from '../../../components/Post/SelectedImage';
 import ListPhotos from '../../../components/Post/ListPhotos';

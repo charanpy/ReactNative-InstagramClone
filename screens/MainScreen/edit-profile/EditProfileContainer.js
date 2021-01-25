@@ -2,7 +2,7 @@ import React from 'react';
 import {
   View
 } from 'react-native';
-import PostHeader from '../../../components/PostHeader';
+import PostHeader from '../../../components/shared/PostHeader/PostHeader';
 import ProfileImage from '../../../components/Profile/edit-profile/ProfileImage';
 import UpdatePhotoModal from '../../../components/Profile/edit-profile/UpadePhotoModal';
 import MainContainer from '../../MainContainer';

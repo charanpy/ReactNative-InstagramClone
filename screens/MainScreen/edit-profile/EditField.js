@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import MainContainer from '../../MainContainer';
-import PostHeader from '../../../components/PostHeader';
+import PostHeader from '../../../components/shared/PostHeader/PostHeader';
 import EditInput from '../../../components/Profile/edit-profile/EditInput';
 import { editProfileStart } from '../../../redux-sagas/profile/profile.action';
 
