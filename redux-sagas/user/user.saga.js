@@ -181,28 +181,3 @@ export function* userSagas() {
     call(onSignOutStart),
   ]);
 }
-
-// const emailConfirmationApiResponse = yield call(
-//       apiRequest,
-//       { email },
-//       'register'
-//     );
-
-// const apiRequest = async (bodyOfRequest, url) => {
-//   console.log(bodyOfRequest, url);
-
-//   const config = {
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   };
-
-//   const body = JSON.stringify(bodyOfRequest);
-//   console.log(body);
-//   const response = await axios.post(
-//     `https://instamernclone.herokuapp.com/api/v1/users/${url}`,
-//     body,
-//     config
-//   );
-//   return response;
-// };
