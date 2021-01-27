@@ -9,10 +9,10 @@ const initialState = {
   photos: {},
   loading: false,
   success: false,
-  hasPermission: false,
+  hasPermission: null,
 };
 
-const ProfileReducer = (state = initialState, action) => {
+const PostReducer = (state = initialState, action) => {
   switch (action.type) {
     case PostTypes.SET_MULTIPLE_IMAGE_SUCCESS:
       return {
@@ -44,4 +44,4 @@ const ProfileReducer = (state = initialState, action) => {
   }
 };
 
-export default ProfileReducer;
+export default PostReducer;

@@ -5,7 +5,7 @@ import { PostTypes } from './Post.type';
 import { askPermissionSuccess, askPermissionFailure } from './Post.actions';
 import {
   getCameraRollPermission,
-  askCameraRollPermission
+  askCameraRollPermission,
 } from '../../helper/utils/ManagePermissions';
 
 export function* askPermission() {
@@ -26,6 +26,14 @@ export function* askPermission() {
 
 export function* onAskPermissionStart() {
   yield takeLatest(PostTypes.ASK_PERMISSION_START, askPermission);
+}
+
+export function* setMedia({ payload }) {
+  yield console.log(payload);
+}
+
+export function* onSetMediaStart() {
+  yield takeLatest(PostTypes.SET_MEDIA_START, setMedia);
 }
 
 export function* PostSagas() {

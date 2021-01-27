@@ -11,3 +11,16 @@ export const askPermissionSuccess = () => ({
 export const askPermissionFailure = () => ({
   type: PostTypes.ASK_PERMISSION_FAILURE
 });
+
+export const setMediaStart = (albumName) => ({
+  type: PostTypes.SET_MEDIA_START,
+  payload: albumName
+});
+
+export const setMediaSuccess = () => ({
+  type: PostTypes.SET_MEDIA_SUCCESS
+});
+
+export const setMediaFailure = () => ({
+  type: PostTypes.SET_MEDIA_FAILURE
+});
