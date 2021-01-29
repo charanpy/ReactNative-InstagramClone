@@ -7,7 +7,6 @@ import fetchAllFonts from './helper/Font';
 import store from './redux-sagas/store';
 import AlertComponent from './components/shared/Alert/AlertComponent';
 import { loadUserStart } from './redux-sagas/user/user.action';
-// import * as SecureStore from 'expo-secure-store'
 import { getData } from './helper/utils/token';
 import TabNavigation from './Navigation/TabNavigation';
 
@@ -15,14 +14,12 @@ getData().then((res) => {
   console.log('app', res);
 });
 enableScreens();
+
 function App() {
-
   const [fontLoaded, setFontLoaded] = useState(false);
-
   useEffect(() => {
     store.dispatch(loadUserStart());
   }, []);
-  // console.log(11, tok)
 
   // Font-Loading
   if (!fontLoaded) {

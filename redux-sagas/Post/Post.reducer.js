@@ -4,7 +4,7 @@ const initialState = {
   isMultiple: false,
   defaultImage: [],
   selectedImage: [],
-  selectedAlbumName: 'Instagram',
+  selectedAlbumName: 'Camera',
   albumNameList: {},
   photos: {},
   loading: false,
