@@ -2,7 +2,14 @@ import {
   takeLatest, put, call, all
 } from 'redux-saga/effects';
 import { PostTypes } from './Post.type';
-import { askPermissionSuccess, askPermissionFailure } from './Post.actions';
+import {
+  askPermissionSuccess,
+  askPermissionFailure,
+  getAllAlbumNameFailure,
+  getAllAlbumNameSuccess,
+  listAllPhotosSuccess,
+  listAllPhotosFailure
+} from './Post.actions';
 import {
   getCameraRollPermission,
   askCameraRollPermission,
@@ -40,9 +47,10 @@ export function* onSetMediaStart() {
 export function* getAllAlbumName() {
   try {
     const albumNames = yield call(MediaLibrary.getAlbumList);
-    console.log(albumNames);
+    yield put(getAllAlbumNameSuccess(albumNames));
   } catch (e) {
     console.log(e);
+    yield put(getAllAlbumNameFailure());
   }
 }
 
@@ -50,6 +58,25 @@ export function* onGetAllAlbumNamesStart() {
   yield takeLatest(PostTypes.GET_ALBUM_LIST_START, getAllAlbumName);
 }
 
+export function* listPhotos({ payload }) {
+  try {
+    const getAlbumDetail = yield call(MediaLibrary.getAlbumDetail, payload);
+    const getAllPhotos = yield call(MediaLibrary.getAllPhotosInAlbum, getAlbumDetail);
+    yield put(listAllPhotosSuccess(getAllPhotos));
+  } catch (error) {
+    console.log(error);
+    yield put(listAllPhotosFailure());
+  }
+}
+
+export function* onListPhotosStart() {
+  yield takeLatest(PostTypes.SET_MEDIA_START, listPhotos);
+}
+
 export function* PostSagas() {
-  yield all([call(onAskPermissionStart), call(onGetAllAlbumNamesStart)]);
+  yield all([
+    call(onAskPermissionStart),
+    call(onGetAllAlbumNamesStart),
+    call(onListPhotosStart),
+  ]);
 }

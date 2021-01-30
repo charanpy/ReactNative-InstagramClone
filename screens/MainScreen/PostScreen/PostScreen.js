@@ -7,6 +7,8 @@ import MainContainer from '../../MainContainer';
 import PostHeader from '../../../components/shared/PostHeader/PostHeader';
 import UsePost from './PostScreen.state';
 import { selectIsPermissionGranted } from '../../../redux-sagas/Post/Post.selector';
+import SelectAlbum from '../../../components/AddPost/SelectAlbum/SelectAlbum';
+import ListPhotos from '../../../components/AddPost/ListPhotos/ListPhotos';
 
 const PostScreen = ({
   navigation,
@@ -25,6 +27,8 @@ const PostScreen = ({
             route='Home'
             headerTitle='Add Post'
           />
+          <SelectAlbum />
+          <ListPhotos />
         </MainContainer>
       )}
     </>

@@ -1,4 +1,5 @@
 import { PostTypes } from './Post.type';
+import AlbumNameList from './helper';
 
 const initialState = {
   isMultiple: false,
@@ -37,7 +38,40 @@ const PostReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         success: false,
-        hasPermission: false
+        hasPermission: false,
+      };
+    case PostTypes.GET_ALBUM_LIST_START:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+    case PostTypes.GET_ALBUM_LIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        albumNameList: AlbumNameList(action.payload, 'id', 'title'),
+      };
+    case PostTypes.GET_ALBUM_LIST_FAILURE:
+    case PostTypes.SET_MEDIA_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+    case PostTypes.SET_MEDIA_START:
+      return {
+        ...state,
+        loading: true,
+        success: false,
+      };
+    case PostTypes.SET_MEDIA_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        photos: AlbumNameList(action.payload, 'albumId', 'uri'),
       };
     default:
       return state;
