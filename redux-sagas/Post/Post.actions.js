@@ -51,3 +51,11 @@ export const listAllPhotosSuccess = (photos) => ({
 export const listAllPhotosFailure = () => ({
   type: PostTypes.SET_MEDIA_FAILURE,
 });
+
+export const emptyMediaStart = () => ({
+  type: PostTypes.EMPTY_MEDIA_START
+});
+
+export const emptyMediaSuccess = () => ({
+  type: PostTypes.EMPTY_MEDIA_SUCCESS
+});

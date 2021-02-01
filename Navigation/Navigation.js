@@ -157,8 +157,6 @@ const App = createBottomTabNavigator(
       unmountOnBlur: true,
       tabBarVisible: navigation.state.routeName !== 'AddPost',
       tabBarIcon: ({ focused }) => {
-        console.log('theme', theme);
-        console.log(navigation.theme);
         const { routeName } = navigation.state;
 
         let IconComponent = Ionicons;

@@ -8,7 +8,8 @@ import {
   getAllAlbumNameFailure,
   getAllAlbumNameSuccess,
   listAllPhotosSuccess,
-  listAllPhotosFailure
+  listAllPhotosFailure,
+  emptyMediaSuccess,
 } from './Post.actions';
 import {
   getCameraRollPermission,
@@ -62,7 +63,8 @@ export function* listPhotos({ payload }) {
   try {
     const getAlbumDetail = yield call(MediaLibrary.getAlbumDetail, payload);
     const getAllPhotos = yield call(MediaLibrary.getAllPhotosInAlbum, getAlbumDetail);
-    yield put(listAllPhotosSuccess(getAllPhotos));
+    console.log(getAllPhotos);
+    yield put(listAllPhotosSuccess(getAllPhotos.assets));
   } catch (error) {
     console.log(error);
     yield put(listAllPhotosFailure());
@@ -73,10 +75,19 @@ export function* onListPhotosStart() {
   yield takeLatest(PostTypes.SET_MEDIA_START, listPhotos);
 }
 
+export function* emptyMedia() {
+  yield put(emptyMediaSuccess());
+}
+
+export function* onEmptyMediaStart() {
+  yield takeLatest(PostTypes.EMPTY_MEDIA_START, emptyMedia);
+}
+
 export function* PostSagas() {
   yield all([
     call(onAskPermissionStart),
     call(onGetAllAlbumNamesStart),
     call(onListPhotosStart),
+    call(onEmptyMediaStart),
   ]);
 }

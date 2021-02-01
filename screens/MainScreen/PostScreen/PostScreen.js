@@ -2,7 +2,7 @@ import React from 'react';
 // import TextComponent from '../../../components/shared/Text/TextComponent';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { askPermissionStart } from '../../../redux-sagas/Post/Post.actions';
+import { askPermissionStart, emptyMediaStart } from '../../../redux-sagas/Post/Post.actions';
 import MainContainer from '../../MainContainer';
 import PostHeader from '../../../components/shared/PostHeader/PostHeader';
 import UsePost from './PostScreen.state';
@@ -14,8 +14,9 @@ const PostScreen = ({
   navigation,
   askPermissionStart: askPermission,
   hasPermission,
+  emptyMediaStart: emptyMedia
 }) => {
-  UsePost(askPermission, navigation, hasPermission);
+  UsePost(askPermission, navigation, hasPermission, emptyMedia);
   console.log('Rendered');
   return (
     <>
@@ -40,5 +41,6 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = (dispatch) => ({
   askPermissionStart: () => dispatch(askPermissionStart()),
+  emptyMediaStart: () => dispatch(emptyMediaStart()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(PostScreen);

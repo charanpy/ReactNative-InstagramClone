@@ -1,5 +1,5 @@
 import { PostTypes } from './Post.type';
-import AlbumNameList from './helper';
+import AlbumNameList, { setDefaultPhoto } from './helper';
 
 const initialState = {
   isMultiple: false,
@@ -61,6 +61,7 @@ const PostReducer = (state = initialState, action) => {
         success: false,
       };
     case PostTypes.SET_MEDIA_START:
+    case PostTypes.EMPTY_MEDIA_START:
       return {
         ...state,
         loading: true,
@@ -71,8 +72,11 @@ const PostReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         success: true,
-        photos: AlbumNameList(action.payload, 'albumId', 'uri'),
+        photos: AlbumNameList(action.payload, 'id', 'uri'),
+        defaultImage: setDefaultPhoto(action.payload[0]),
       };
+    case PostTypes.EMPTY_MEDIA_SUCCESS:
+      return initialState;
     default:
       return state;
   }
