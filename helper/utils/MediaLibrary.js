@@ -18,7 +18,7 @@ const getAllPhotosInAlbum = async (getAlbums) => {
   const getAllPhotos = await MediaLibrary.getAssetsAsync({
     first: 20,
     album: getAlbums,
-    sortBy: ['creationTime'],
+    sortBy: ['modificationTime'],
     mediaType: ['photo', 'video'],
   });
   return getAllPhotos;

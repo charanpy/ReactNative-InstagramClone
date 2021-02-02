@@ -19,7 +19,7 @@ const PostScreenState = (askPermission, navigation, hasPermission, emptyMedia) =
     };
   }, [navigation, hasPermission, askPermission]);
 
-   const clearUpDataOnUnMount = useCallback(() => {
+  const clearUpDataOnUnMount = useCallback(() => {
     emptyMedia();
   }, [emptyMedia]);
   UseBackHandler(clearUpDataOnUnMount);

@@ -7,4 +7,7 @@ export const selectIsPermissionGranted = createSelector(
   (post) => post.hasPermission
 );
 
-export const hi = () => {};
+export const selectDefaultPhoto = createSelector(
+  [PostSelector],
+  (album) => Object.values(album.photos)[0]
+);

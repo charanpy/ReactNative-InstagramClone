@@ -9,6 +9,7 @@ import UsePost from './PostScreen.state';
 import { selectIsPermissionGranted } from '../../../redux-sagas/Post/Post.selector';
 import SelectAlbum from '../../../components/AddPost/SelectAlbum/SelectAlbum';
 import ListPhotos from '../../../components/AddPost/ListPhotos/ListPhotos';
+import SelectedImage from '../../../components/AddPost/SelectedImage/SelectedImage';
 
 const PostScreen = ({
   navigation,
@@ -17,17 +18,18 @@ const PostScreen = ({
   emptyMediaStart: emptyMedia
 }) => {
   UsePost(askPermission, navigation, hasPermission, emptyMedia);
-  console.log('Rendered');
+  console.log('Post Rendered');
   return (
     <>
       {hasPermission && (
         <MainContainer>
           <PostHeader
-            onClick={() => {}}
+            onClick={() => emptyMedia()}
             navigation={navigation}
             route='Home'
             headerTitle='Add Post'
           />
+          <SelectedImage />
           <SelectAlbum />
           <ListPhotos />
         </MainContainer>
