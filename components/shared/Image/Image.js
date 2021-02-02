@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Image } from 'react-native';
 
 const ProgressiveImage = ({ source, styles, isStatic = false }) => {
-  const [showDefaultImage, setDefaultImage] = useState(true);
+  const [showDefaultImage, setDefaultImageVisible] = useState(true);
   const setDefaultImageToFalse = () => {
-    setDefaultImage((visible) => !visible);
+    setDefaultImageVisible((visible) => !visible);
   };
   return (
     <>
