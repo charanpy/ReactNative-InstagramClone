@@ -13,6 +13,7 @@ import TabNavigation from './Navigation/TabNavigation';
 getData().then((res) => {
   console.log('app', res);
 });
+
 enableScreens();
 
 function App() {

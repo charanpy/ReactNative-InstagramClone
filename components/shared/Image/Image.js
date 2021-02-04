@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
 import { Image } from 'react-native';
 
-const ProgressiveImage = ({ source, styles, isStatic = false }) => {
+const ProgressiveImage = (props) => {
+  const { source: { uri, isStatic }, styles } = props;
   const [showDefaultImage, setDefaultImage] = useState(true);
   const setDefaultImageToFalse = () => {
-    setDefaultImage((visible) => !visible);
+    setDefaultImage(false);
   };
-
+  console.log(showDefaultImage);
   return (
     <>
       <Image
-        source={source}
-        isStatic={isStatic}
-        style={styles}
+        source={{
+          uri,
+          isStatic,
+        }}
+        style={[styles, showDefaultImage ? { display: 'none' } : { display: 'flex' }]}
         onLoadEnd={setDefaultImageToFalse}
       />
       {showDefaultImage && (
         <Image
           source={require('../../../assets/default.png')}
-          isStatic={isStatic}
           style={styles}
-          onLoadEnd={setDefaultImageToFalse}
         />
       )}
     </>

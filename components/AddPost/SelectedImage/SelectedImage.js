@@ -1,22 +1,22 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectDefaultPhoto } from '../../../redux-sagas/Post/Post.selector';
-import styles from './SelectedImage.style';
+import ProgressiveImage from '../../shared/Image/Image';
+import * as Style from './SelectedImage.style';
 
 const SelectedImage = ({
   defaultPhoto: photo
 }) => {
   return (
-    <View style={styles.Selected_Image}>
-      <Image
-        loadingIndicatorSource={{ uri: require('../../../assets/default.png') }}
+    <View style={Style.default.Selected_Image}>
+      <ProgressiveImage
         source={{
           uri: photo && photo,
           isStatic: true,
         }}
-        style={styles.Image}
+        styles={Style.default.Image}
       />
     </View>
   );
