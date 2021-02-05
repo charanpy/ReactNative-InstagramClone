@@ -76,7 +76,16 @@ const PostReducer = (state = initialState, action) => {
         defaultImage: setDefaultPhoto(action.payload[0]),
       };
     case PostTypes.EMPTY_MEDIA_SUCCESS:
-      return initialState;
+      return {
+        isMultiple: false,
+        defaultImage: [],
+        selectedImage: [],
+        selectedAlbumName: 'Camera',
+        photos: {},
+        loading: false,
+        success: false,
+        hasPermission: null,
+      };
     default:
       return state;
   }

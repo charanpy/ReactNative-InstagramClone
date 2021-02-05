@@ -9,7 +9,7 @@ export function* modal() {
 }
 
 export function* onModal() {
-  yield takeLatest(modalTypes.SET_MODAL_VISIBILITY_SUCCESS, modal);
+  yield takeLatest(modalTypes.SET_MODAL_VISIBILITY_START, modal);
 }
 
 export function* ModalSagas() {

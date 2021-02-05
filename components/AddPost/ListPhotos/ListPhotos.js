@@ -10,7 +10,9 @@ import UseListPhotoState from './ListPhotos.state';
 import { color } from '../../../helper/utils/constants';
 import styles from './ListPhotos.style';
 
-const ListPhotos = ({ listAllPhotosStart: listPhotos, photos, loading }) => {
+const ListPhotos = ({
+  listAllPhotosStart: listPhotos, photos, loading,
+}) => {
   UseListPhotoState(listPhotos);
   const renderImage = ({ item }) => {
     return (

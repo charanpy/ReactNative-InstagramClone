@@ -1,5 +1,4 @@
 import React from 'react';
-// import TextComponent from '../../../components/shared/Text/TextComponent';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { askPermissionStart, emptyMediaStart } from '../../../redux-sagas/Post/Post.actions';
@@ -10,6 +9,7 @@ import { selectIsPermissionGranted } from '../../../redux-sagas/Post/Post.select
 import SelectAlbum from '../../../components/AddPost/SelectAlbum/SelectAlbum';
 import ListPhotos from '../../../components/AddPost/ListPhotos/ListPhotos';
 import SelectedImage from '../../../components/AddPost/SelectedImage/SelectedImage';
+import SelectAlbumModal from '../../../components/AddPost/SelectAlbumModal/SelectAlbumModal';
 
 const PostScreen = ({
   navigation,
@@ -32,6 +32,7 @@ const PostScreen = ({
           <SelectedImage />
           <SelectAlbum />
           <ListPhotos />
+          <SelectAlbumModal />
         </MainContainer>
       )}
     </>

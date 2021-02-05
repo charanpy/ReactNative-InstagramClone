@@ -21,3 +21,8 @@ export const selectIsLoading = createSelector(
   [PostSelector],
   (album) => album.loading
 );
+
+export const selectAlbumNameList = createSelector(
+  [PostSelector],
+  (albums) => albums.albumNameList
+);

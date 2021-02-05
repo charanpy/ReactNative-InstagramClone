@@ -4,6 +4,7 @@ import TextComponent from '../Text/TextComponent';
 import Icon from '../Icon/Icon';
 
 const Touchable = ({
+  keys = null,
   TouchableComponent,
   DisplayText = null,
   TouchableStyle = null,
@@ -14,8 +15,9 @@ const Touchable = ({
   IconName = null,
   IconSize = null,
   IconStyle = null,
+  onClick = () => {}
 }) => (
-  <TouchableComponent style={TouchableStyle}>
+  <TouchableComponent style={TouchableStyle} onPress={onClick} key={keys}>
     <View style={ViewStyle}>
       {DisplayText && <TextComponent style={TextStyle[0]}>{DisplayText[0]}</TextComponent>}
       {ExtraInfo && (

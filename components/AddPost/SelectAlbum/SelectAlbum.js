@@ -2,13 +2,13 @@ import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { getAllAlbumNameStart } from '../../../redux-sagas/Post/Post.actions';
-import UseSelectAlbum from './SelectAlbum.state';
 import Touchable from '../../shared/Touchable/Touchable';
+import { setModalVisibilityStart } from '../../../redux-sagas/modal/modal.action';
 import styles from './SelectAlbum.style';
 
-const SelectAlbum = ({ getAllAlbumNameStart: getAlbumNames }) => {
-  UseSelectAlbum(getAlbumNames);
+const SelectAlbum = ({
+  setModalVisibilityStart: setModal
+}) => {
   console.log('SelectAlbumName');
   return (
     <>
@@ -22,6 +22,7 @@ const SelectAlbum = ({ getAllAlbumNameStart: getAlbumNames }) => {
           IconName='ios-arrow-down'
           IconSize={22}
           IconStyle={styles.Icon_Style}
+          onClick={setModal}
         />
         <View style={styles.Right_Container}>
           <Touchable
@@ -46,7 +47,7 @@ const SelectAlbum = ({ getAllAlbumNameStart: getAlbumNames }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getAllAlbumNameStart: () => dispatch(getAllAlbumNameStart()),
+  setModalVisibilityStart: () => dispatch(setModalVisibilityStart()),
 });
 
 export default connect(null, mapDispatchToProps)(SelectAlbum);
