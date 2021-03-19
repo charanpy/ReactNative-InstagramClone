@@ -1,10 +1,10 @@
 import { PostTypes } from './Post.type';
-import AlbumNameList, { setDefaultPhoto } from './helper';
+import AlbumNameList, { setDefaultPhoto, setSelectedImage } from './helper';
 
 const initialState = {
   isMultiple: false,
   defaultImage: [],
-  selectedImage: [],
+  selectedImage: {},
   selectedAlbumName: 'Camera',
   albumNameList: {},
   photos: {},
@@ -18,7 +18,8 @@ const PostReducer = (state = initialState, action) => {
     case PostTypes.SET_MULTIPLE_IMAGE_SUCCESS:
       return {
         ...state,
-        isMultiple: state.isMultiple,
+        isMultiple: !state.isMultiple,
+        selectedImage: state.isMultiple ? {} : state.selectedImage,
       };
     case PostTypes.ASK_PERMISSION_START:
       return {
@@ -85,6 +86,11 @@ const PostReducer = (state = initialState, action) => {
         loading: false,
         success: false,
         hasPermission: null,
+      };
+    case PostTypes.SET_SELECTED_IMAGE_SUCCESS:
+      return {
+        ...state,
+        selectedImage: setSelectedImage(action.payload, state),
       };
     default:
       return state;

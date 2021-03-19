@@ -26,3 +26,23 @@ export const selectAlbumNameList = createSelector(
   [PostSelector],
   (albums) => albums.albumNameList
 );
+/* eslint-disable */
+export const selectedImage = createSelector(
+  [PostSelector],
+  (albums) =>
+    albums.selectedImage &&
+    Object.keys(albums.selectedImage).length &&
+    Object.keys(albums.selectedImage)[
+      Object.keys(albums.selectedImage).length - 1
+    ]
+);
+
+export const selectIsMultiple = createSelector(
+  [PostSelector],
+  (albums) => albums.isMultiple
+);
+
+export const selectSelectedImage = createSelector(
+  [PostSelector],
+  (albums) => albums.selectedImage && albums.selectedImage
+);

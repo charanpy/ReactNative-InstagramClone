@@ -5,47 +5,47 @@ export const askPermissionStart = () => ({
 });
 
 export const askPermissionSuccess = () => ({
-  type: PostTypes.ASK_PERMISSION_SUCCESS
+  type: PostTypes.ASK_PERMISSION_SUCCESS,
 });
 
 export const askPermissionFailure = () => ({
-  type: PostTypes.ASK_PERMISSION_FAILURE
+  type: PostTypes.ASK_PERMISSION_FAILURE,
 });
 
 export const setMediaStart = (albumName) => ({
   type: PostTypes.SET_MEDIA_START,
-  payload: albumName
+  payload: albumName,
 });
 
 export const setMediaSuccess = () => ({
-  type: PostTypes.SET_MEDIA_SUCCESS
+  type: PostTypes.SET_MEDIA_SUCCESS,
 });
 
 export const setMediaFailure = () => ({
-  type: PostTypes.SET_MEDIA_FAILURE
+  type: PostTypes.SET_MEDIA_FAILURE,
 });
 
 export const getAllAlbumNameStart = () => ({
-  type: PostTypes.GET_ALBUM_LIST_START
+  type: PostTypes.GET_ALBUM_LIST_START,
 });
 
 export const getAllAlbumNameSuccess = (albumNames) => ({
   type: PostTypes.GET_ALBUM_LIST_SUCCESS,
-  payload: albumNames
+  payload: albumNames,
 });
 
 export const getAllAlbumNameFailure = () => ({
-  type: PostTypes.GET_ALBUM_LIST_FAILURE
+  type: PostTypes.GET_ALBUM_LIST_FAILURE,
 });
 
 export const listAllPhotosStart = (albumName) => ({
   type: PostTypes.SET_MEDIA_START,
-  payload: albumName
+  payload: albumName,
 });
 
 export const listAllPhotosSuccess = (photos) => ({
   type: PostTypes.SET_MEDIA_SUCCESS,
-  payload: photos
+  payload: photos,
 });
 
 export const listAllPhotosFailure = () => ({
@@ -53,9 +53,27 @@ export const listAllPhotosFailure = () => ({
 });
 
 export const emptyMediaStart = () => ({
-  type: PostTypes.EMPTY_MEDIA_START
+  type: PostTypes.EMPTY_MEDIA_START,
 });
 
 export const emptyMediaSuccess = () => ({
-  type: PostTypes.EMPTY_MEDIA_SUCCESS
+  type: PostTypes.EMPTY_MEDIA_SUCCESS,
+});
+
+export const setSelectedImageStart = (image) => ({
+  type: PostTypes.SET_SELECTED_IMAGE_START,
+  payload: image,
+});
+
+export const setSelectedImageSuccess = (image) => ({
+  type: PostTypes.SET_SELECTED_IMAGE_SUCCESS,
+  payload: image,
+});
+
+export const setMultipleSuccess = () => ({
+  type: PostTypes.SET_MULTIPLE_IMAGE_SUCCESS,
+});
+
+export const setMultipleStart = () => ({
+  type: PostTypes.SET_MULTIPLE_IMAGE_START,
 });

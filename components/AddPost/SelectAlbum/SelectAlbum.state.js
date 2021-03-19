@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { lauchCamera } from '../../../helper/utils/MediaLibrary';
 
-const SelectAlbumState = (getAllAlbumNames) => {
-  useEffect(() => {
-    getAllAlbumNames();
-  }, [getAllAlbumNames]);
+const SelectAlbumState = (setImage) => {
+  const getCamImage = async () => {
+    const { cancelled, uri } = await lauchCamera();
+    if (!cancelled) setImage('camera', uri);
+  };
+  return [getCamImage];
 };
 
 export default SelectAlbumState;

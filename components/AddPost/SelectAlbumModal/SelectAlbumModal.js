@@ -42,6 +42,7 @@ const SelectAlbumModal = ({
       animationOut='slideOutDown'
       style={styles.Modal_Container}
       useNativeDriver
+      unMountOnExit
     >
       <MainContainer modal style={styles.Main_Cont}>
         <View style={styles.Icon}>
@@ -50,7 +51,7 @@ const SelectAlbumModal = ({
 
         <View style={styles.List_Container}>
           <FlatList
-            data={Object.keys(albums)}
+            data={albums && Object.keys(albums)}
             renderItem={ModalView}
             keyExtractor={(item) => item}
           />

@@ -4,12 +4,20 @@ import { connect } from 'react-redux';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Touchable from '../../shared/Touchable/Touchable';
 import { setModalVisibilityStart } from '../../../redux-sagas/modal/modal.action';
+import {
+  setMultipleStart,
+  setSelectedImageStart,
+} from '../../../redux-sagas/Post/Post.actions';
+import UseSelectAlbum from './SelectAlbum.state';
 import styles from './SelectAlbum.style';
 
 const SelectAlbum = ({
-  setModalVisibilityStart: setModal
+  setModalVisibilityStart: setModal,
+  setMultipleStart: setMultiple,
+  setSelectedImageStart: setImage,
 }) => {
   console.log('SelectAlbumName');
+  const [getCamImage] = UseSelectAlbum(setImage);
   return (
     <>
       <View style={styles.SelectedImage_Container}>
@@ -31,6 +39,7 @@ const SelectAlbum = ({
             IconComponent={MaterialCommunityIcons}
             IconName='image-filter-none'
             IconSize={18}
+            onClick={setMultiple}
           />
           <Touchable
             TouchableComponent={TouchableOpacity}
@@ -39,6 +48,7 @@ const SelectAlbum = ({
             IconComponent={MaterialCommunityIcons}
             IconName='camera-outline'
             IconSize={18}
+            onClick={getCamImage}
           />
         </View>
       </View>
@@ -48,6 +58,9 @@ const SelectAlbum = ({
 
 const mapDispatchToProps = (dispatch) => ({
   setModalVisibilityStart: () => dispatch(setModalVisibilityStart()),
+  setMultipleStart: () => dispatch(setMultipleStart()),
+  setSelectedImageStart: (id, uri) =>
+    dispatch(setSelectedImageStart({ id, uri })),
 });
 
 export default connect(null, mapDispatchToProps)(SelectAlbum);

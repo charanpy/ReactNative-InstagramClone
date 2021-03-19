@@ -1,6 +1,4 @@
-import {
-  takeLatest, put, call, all
-} from 'redux-saga/effects';
+import { takeLatest, put, call, all } from 'redux-saga/effects';
 import { PostTypes } from './Post.type';
 import {
   askPermissionSuccess,
@@ -10,6 +8,8 @@ import {
   listAllPhotosSuccess,
   listAllPhotosFailure,
   emptyMediaSuccess,
+  setSelectedImageSuccess,
+  setMultipleSuccess,
 } from './Post.actions';
 import {
   getCameraRollPermission,
@@ -38,11 +38,11 @@ export function* onAskPermissionStart() {
 }
 
 export function* setMedia({ payload }) {
-  yield console.log(payload);
+  yield put(setSelectedImageSuccess(payload));
 }
 
 export function* onSetMediaStart() {
-  yield takeLatest(PostTypes.SET_MEDIA_START, setMedia);
+  yield takeLatest(PostTypes.SET_SELECTED_IMAGE_START, setMedia);
 }
 
 export function* getAllAlbumName() {
@@ -62,7 +62,10 @@ export function* onGetAllAlbumNamesStart() {
 export function* listPhotos({ payload }) {
   try {
     const getAlbumDetail = yield call(MediaLibrary.getAlbumDetail, payload);
-    const getAllPhotos = yield call(MediaLibrary.getAllPhotosInAlbum, getAlbumDetail);
+    const getAllPhotos = yield call(
+      MediaLibrary.getAllPhotosInAlbum,
+      getAlbumDetail
+    );
     console.log(getAllPhotos);
     yield put(listAllPhotosSuccess(getAllPhotos.assets));
   } catch (error) {
@@ -83,11 +86,20 @@ export function* onEmptyMediaStart() {
   yield takeLatest(PostTypes.EMPTY_MEDIA_START, emptyMedia);
 }
 
+export function* multipleImage() {
+  yield put(setMultipleSuccess());
+}
+
+export function* OnSetMultipleStart() {
+  yield takeLatest(PostTypes.SET_MULTIPLE_IMAGE_START, multipleImage);
+}
 export function* PostSagas() {
   yield all([
     call(onAskPermissionStart),
     call(onGetAllAlbumNamesStart),
     call(onListPhotosStart),
     call(onEmptyMediaStart),
+    call(onSetMediaStart),
+    call(OnSetMultipleStart),
   ]);
 }

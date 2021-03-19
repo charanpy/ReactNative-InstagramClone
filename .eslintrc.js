@@ -1,12 +1,6 @@
 module.exports = {
-  extends: [
-    'airbnb'
-  ],
-  plugins: [
-    'react',
-    'react-native',
-    'react-hooks'
-  ],
+  extends: ['airbnb'],
+  plugins: ['react', 'react-native', 'react-hooks'],
   parser: 'babel-eslint',
   env: {
     jest: true,
@@ -31,8 +25,10 @@ module.exports = {
     'jsx-quotes': ['error', 'prefer-single'],
     'react/jsx-props-no-spreading': 'off',
     'global-require': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'object-curly-newline': 'off',
   },
   globals: {
-    fetch: false
-  }
+    fetch: false,
+  },
 };
