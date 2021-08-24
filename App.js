@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppLoading } from 'expo';
 import { enableScreens } from 'react-native-screens';
 import { Provider } from 'react-redux';

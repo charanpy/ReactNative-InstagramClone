@@ -36,11 +36,12 @@ const ApiRequest = async (
   const config = {
     headers,
   };
-  console.log(route, body, methodType);
-  console.log(url, request, userToken, bodyOfRequest, config);
-  const response = methodType !== 'get'
-    ? await request(url, bodyOfRequest, config)
-    : await request(url, config);
+  // console.log(route, body, methodType, url, 33);
+  // console.log(url, request, userToken, bodyOfRequest, config);
+  const response =
+    methodType !== 'get'
+      ? await request(url, bodyOfRequest, config)
+      : await request(url, config);
 
   return response;
 };

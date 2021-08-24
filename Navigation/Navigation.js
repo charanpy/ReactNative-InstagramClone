@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {
   Ionicons,
   MaterialCommunityIcons,
-  MaterialIcons
+  MaterialIcons,
 } from '@expo/vector-icons';
 import Login from '../screens/AuthScreen/Login/Login.screen';
 import Register from '../screens/AuthScreen/Register/Register.screen';
@@ -15,7 +15,8 @@ import ConfirmScreen from '../screens/ConfirmScreen';
 import SplashScreen from '../screens/Splash.screen';
 import Icon from '../components/shared/Icon/Icon';
 import HomeContainer from '../screens/MainScreen/HomeScreen';
-// import AddPost from '../screens/MainScreen/Post/AddPost';
+import AddPostScreen from '../screens/MainScreen/PostScreen/AddPost';
+// below addpost for display images
 import AddPost from '../screens/MainScreen/PostScreen/PostScreen';
 import LikeScreen from '../screens/MainScreen/LikeScreen';
 import ProfileScreen from '../screens/MainScreen/ProfileScreen';
@@ -23,6 +24,9 @@ import Header from '../components/shared/Header/Header';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import EditProfile from '../screens/MainScreen/edit-profile/EditProfileContainer';
 import EditField from '../screens/MainScreen/edit-profile/EditField';
+
+// There are two versions of post screen one implemented using sagas and another using useReducer
+// currently project uses sagas screen(PostScreen folder) components(AddPost)
 
 const AuthenticationNavigator = createStackNavigator(
   {
@@ -76,7 +80,7 @@ const home = createStackNavigator(
           textAlignVertical: 'center',
           flex: 1,
           fontSize: 36,
-          marginTop: '5%'
+          marginTop: '5%',
         },
       };
     },
@@ -86,6 +90,7 @@ const home = createStackNavigator(
 const addPost = createStackNavigator(
   {
     post: AddPost,
+    addPost: AddPostScreen,
   },
   {
     defaultNavigationOptions: {
@@ -103,26 +108,30 @@ const profileScreen = createStackNavigator(
       screen: EditProfile,
       navigationOptions: {
         headerShown: false,
-      }
+      },
     },
     EditField: {
       screen: EditField,
       navigationOptions: {
         headerShown: false,
-      }
-    }
+      },
+    },
   },
   {
-    defaultNavigationOptions: ({ navigation: { state: { routeName } }, theme }) => {
+    defaultNavigationOptions: ({
+      navigation: {
+        state: { routeName },
+      },
+      theme,
+    }) => {
       return {
         headerTitle: () => <ProfileHeader headerTitle={routeName} />,
         headerStyle: {
           height: 60,
-          backgroundColor: theme === 'dark' ? 'black' : 'white'
+          backgroundColor: theme === 'dark' ? 'black' : 'white',
         },
-
       };
-    }
+    },
   }
 );
 
@@ -132,7 +141,7 @@ profileScreen.navigationOptions = ({ navigation }) => {
     tabBarVisible = false;
   }
   return {
-    tabBarVisible
+    tabBarVisible,
   };
 };
 
@@ -147,7 +156,7 @@ const App = createBottomTabNavigator(
 
     Like: LikeScreen,
     Profile: {
-      screen: profileScreen
+      screen: profileScreen,
     },
   },
   {

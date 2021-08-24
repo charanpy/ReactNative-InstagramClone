@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet, View, TouchableOpacity, Dimensions
-} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectUserProfile } from '../../redux-sagas/user/user.selector';
@@ -12,8 +10,11 @@ import profileSelector from '../../redux-sagas/profile/profile.selector';
 const DisplayProfile = ({ photo, follow }) => {
   // console.log(12, userProfile);
   // eslint-disable-next-line
-  const source = ((photo && photo.includes('cdn')) && require('../../assets/user1.jpg')) || {
-    uri: photo
+  console.log(follow, 222);
+  const source = (photo &&
+    photo.includes('cdn') &&
+    require('../../assets/user1.jpg')) || {
+    uri: photo,
   };
   return (
     <View style={styles.Profile_Info_Container}>

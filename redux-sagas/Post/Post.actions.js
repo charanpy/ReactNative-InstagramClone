@@ -77,3 +77,16 @@ export const setMultipleSuccess = () => ({
 export const setMultipleStart = () => ({
   type: PostTypes.SET_MULTIPLE_IMAGE_START,
 });
+
+export const addPostStart = (images) => ({
+  type: PostTypes.ADD_POST_START,
+  payload: images,
+});
+
+export const addPostSuccess = () => ({
+  type: PostTypes.ADD_POST_SUCCESS,
+});
+
+export const addPostFailure = () => ({
+  type: PostTypes.ADD_POST_FAILURE,
+});

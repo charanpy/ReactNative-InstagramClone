@@ -7,8 +7,13 @@ import { CommonStyles } from '../../../styles/Common.styles';
 import { selectApiCallLoading } from '../../../redux-sagas/user/user.selector';
 
 const ButtonComponent = ({
-  disableButton, onPressButton, loading, title
+  disableButton,
+  onPressButton,
+  loading,
+  title,
+  load,
 }) => {
+  console.log(load, disableButton, 23);
   return (
     <View style={{ alignItems: 'center', borderRadius: 5, width: '100%' }}>
       <TouchableNativeFeedback
@@ -23,7 +28,7 @@ const ButtonComponent = ({
               : CommonStyles.Login_Button_Disable
           }
         >
-          {loading ? (
+          {loading || load ? (
             <ActivityIndicator size='small' color='#fff' animating />
           ) : (
             <TextComponent color='white' style={CommonStyles.Button}>

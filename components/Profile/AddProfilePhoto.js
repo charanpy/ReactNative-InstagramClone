@@ -1,17 +1,16 @@
 import React from 'react';
-import {
-  StyleSheet, Image, Dimensions
-} from 'react-native';
+import { StyleSheet, Image, Dimensions } from 'react-native';
 
 const AddProfilePhoto = ({ source }) => {
+  const style = {
+    ...styles.Profile_Info,
+  };
   return (
-
     <Image
       // eslint-disable-next-line
       source={source}
-      style={styles.Profile_Info}
+      style={style}
     />
-
   );
 };
 
@@ -26,5 +25,4 @@ const styles = StyleSheet.create({
     marginLeft: '10%',
     // width: Dimensions.get('window').width / 3,
   },
-
 });

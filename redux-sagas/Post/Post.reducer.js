@@ -42,6 +42,7 @@ const PostReducer = (state = initialState, action) => {
         hasPermission: false,
       };
     case PostTypes.GET_ALBUM_LIST_START:
+    case PostTypes.ADD_POST_START:
       return {
         ...state,
         loading: true,
@@ -77,14 +78,17 @@ const PostReducer = (state = initialState, action) => {
         defaultImage: setDefaultPhoto(action.payload[0]),
       };
     case PostTypes.EMPTY_MEDIA_SUCCESS:
+    case PostTypes.ADD_POST_FAILURE:
+    case PostTypes.ADD_POST_SUCCESS:
       return {
+        ...state,
         isMultiple: false,
         defaultImage: [],
         selectedImage: [],
         selectedAlbumName: 'Camera',
         photos: {},
         loading: false,
-        success: false,
+        success: true,
         hasPermission: null,
       };
     case PostTypes.SET_SELECTED_IMAGE_SUCCESS:

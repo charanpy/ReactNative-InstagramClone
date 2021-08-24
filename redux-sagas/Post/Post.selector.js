@@ -46,3 +46,8 @@ export const selectSelectedImage = createSelector(
   [PostSelector],
   (albums) => albums.selectedImage && albums.selectedImage
 );
+
+export const selectSuccess = createSelector(
+  [PostSelector],
+  (albums) => albums.success
+);

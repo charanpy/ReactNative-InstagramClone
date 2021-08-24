@@ -27,9 +27,12 @@ const selectImageUri = createSelector(
   (profile) => profile.userProfile?.photo
 );
 
-const selectFollowersFollowing = createSelector(
-  [selectProfile],
-  (profile) => `${profile.userProfile?.followers.length}${profile.userProfile?.following.length}`
+const selectFollowersFollowing = createSelector([selectProfile], (profile) =>
+  `${
+    profile.userProfile && Object.keys(profile.userProfile?.followers).length
+  }${
+    profile.userProfile && Object.keys(profile.userProfile?.following).length
+  }`.trim()
 );
 
 const selectUsername = createSelector(
@@ -44,5 +47,5 @@ export default {
   selectImageUri,
   selectFollowersFollowing,
   selectUsername,
-  selectIsLoading
+  selectIsLoading,
 };

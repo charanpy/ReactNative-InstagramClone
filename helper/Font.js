@@ -13,7 +13,7 @@ const fetchAllFonts = () => {
     'Roboto-Bold': require('../assets/fonts/Roboto-Bold.ttf'),
     'Nue-Thin': require('../assets/fonts/HelveticaNeueThin.ttf'),
     'Nue-Regular': require('../assets/fonts/HelveticaNeueMedium.ttf'),
-    'Nue-Light': require('../assets/fonts/HelveticaNeueLight.ttf')
+    'Nue-Light': require('../assets/fonts/HelveticaNeueLight.ttf'),
   });
 };
 

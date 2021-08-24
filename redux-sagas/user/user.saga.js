@@ -1,6 +1,4 @@
-import {
-  takeLatest, put, all, call
-} from 'redux-saga/effects';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
 import PrivateApiRoutes from '../../ApiRoutes/PrivateApi';
 import { userActionTypes } from './user.type';
 import {
@@ -181,7 +179,3 @@ export function* userSagas() {
     call(onSignOutStart),
   ]);
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> c5e588cab2aafe7f9ece1c9e856ff3d3aacf12b9

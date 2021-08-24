@@ -1,5 +1,6 @@
 import { takeLatest, put, call, all } from 'redux-saga/effects';
 import { PostTypes } from './Post.type';
+import PrivateApiRoute from '../../ApiRoutes/PrivateApi';
 import {
   askPermissionSuccess,
   askPermissionFailure,
@@ -10,12 +11,16 @@ import {
   emptyMediaSuccess,
   setSelectedImageSuccess,
   setMultipleSuccess,
+  addPostFailure,
+  addPostSuccess,
 } from './Post.actions';
 import {
   getCameraRollPermission,
   askCameraRollPermission,
 } from '../../helper/utils/ManagePermissions';
 import MediaLibrary from '../../helper/utils/MediaLibrary';
+import { getUniqueId } from '../../helper/utils/token';
+import { setAlert } from '../alert/alert.action';
 
 export function* askPermission() {
   try {
@@ -66,7 +71,6 @@ export function* listPhotos({ payload }) {
       MediaLibrary.getAllPhotosInAlbum,
       getAlbumDetail
     );
-    console.log(getAllPhotos);
     yield put(listAllPhotosSuccess(getAllPhotos.assets));
   } catch (error) {
     console.log(error);
@@ -93,6 +97,34 @@ export function* multipleImage() {
 export function* OnSetMultipleStart() {
   yield takeLatest(PostTypes.SET_MULTIPLE_IMAGE_START, multipleImage);
 }
+
+export function* addPost({ payload: { images } }) {
+  try {
+    const response = yield call(
+      PrivateApiRoute,
+      'post/',
+      images,
+      'post',
+      true,
+      true
+    );
+    console.log(response);
+    yield put(addPostSuccess());
+    const id = getUniqueId();
+
+    yield put(setAlert(id, 'Post created successfully'));
+  } catch (error) {
+    console.log(error, error.response, 222);
+    const id = getUniqueId();
+    yield put(addPostFailure());
+    yield put(setAlert(id, 'Failed to upload Image. Please try again'));
+  }
+}
+
+export function* OnAddPostStart() {
+  yield takeLatest(PostTypes.ADD_POST_START, addPost);
+}
+
 export function* PostSagas() {
   yield all([
     call(onAskPermissionStart),
@@ -101,5 +133,6 @@ export function* PostSagas() {
     call(onEmptyMediaStart),
     call(onSetMediaStart),
     call(OnSetMultipleStart),
+    call(OnAddPostStart),
   ]);
 }

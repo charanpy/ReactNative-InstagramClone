@@ -27,6 +27,7 @@ module.exports = {
     'global-require': 'off',
     'implicit-arrow-linebreak': 'off',
     'object-curly-newline': 'off',
+    'operator-linebreak': 'off',
   },
   globals: {
     fetch: false,
